@@ -273,7 +273,7 @@ namespace TownOfHost
                 0.2f, "Custom Win Trigger Task");
             }
         }
-        public static void JackalWin(byte jackalID)
+        public static void JackalWin(byte jackalID = 100)
         {
             main.WonJackalID = jackalID;
             main.currentWinner = CustomWinner.Jackal;

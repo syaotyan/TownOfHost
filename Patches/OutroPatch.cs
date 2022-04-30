@@ -122,7 +122,7 @@ namespace TownOfHost
                 winner = new();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.PlayerId == main.WonJackalID)
+                    if ((p.isJackal())/* || p.isEgoSchrodingerCat()*/)
                     {
                         TempData.winners.Add(new WinningPlayerData(p.Data));
                         winner.Add(p);

@@ -180,7 +180,7 @@ namespace TownOfHost
                 ResetRoleAndEndGame(GameOverReason.ImpostorByKill, false);
                 return true;
             }
-            else if (CustomRoles.Jackal.isEnable() && Jackal.AliveJackalCount() >= 1 && main.AliveImpostorCount == 0)
+            else if (CustomRoles.Jackal.isEnable() && Jackal.AliveJackalCount() >= main.AliveCrewmateCount && main.AliveImpostorCount == 0)
             {
                 RPC.JackalWin();
                 return false;
