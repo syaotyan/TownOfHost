@@ -84,6 +84,7 @@ namespace TownOfHost
         public static bool AirshipMeetingCheck;
         public static Dictionary<byte, byte> SpeedBoostTarget = new Dictionary<byte, byte>();
         public static int AliveImpostorCount;
+        public static int AliveCrewmateCount;
         public static int SKMadmateNowCount;
         public static bool witchMeeting;
         public static bool isCursed;
@@ -92,6 +93,7 @@ namespace TownOfHost
         public static byte ExiledJesterID;
         public static byte WonTerroristID;
         public static byte WonArsonistID;
+        public static byte WonJackalID;
         public static bool CustomWinTrigger;
         public static bool VisibleTasksCount;
         public static string nickName = "";
@@ -195,6 +197,7 @@ namespace TownOfHost
                 {CustomRoles.MSchrodingerCat, "#ff0000"},
                 {CustomRoles.EgoSchrodingerCat, "#5600ff"},
                 {CustomRoles.Egoist, "#5600ff"},
+                {CustomRoles.Jackal, "#00b4ed"},
                 {CustomRoles.Fox, "#e478ff"},
                 {CustomRoles.Troll, "#00ff00"},
                 {CustomRoles.NoSubRoleAssigned, "#ffffff"}
@@ -269,6 +272,7 @@ namespace TownOfHost
         //第三陣営
         Arsonist,
         Egoist,
+        Jackal,
         Jester,
         Opportunist,
         SchrodingerCat,//第三陣営のシュレディンガーの猫
@@ -293,6 +297,7 @@ namespace TownOfHost
         Terrorist,
         Arsonist,
         Egoist,
+        Jackal,
         Troll
     }
     public enum AdditionalWinners

@@ -1,3 +1,4 @@
+
 using HarmonyLib;
 
 namespace TownOfHost
@@ -16,6 +17,7 @@ namespace TownOfHost
             if (CheckAndEndGameForJester(__instance)) return false;
             if (CheckAndEndGameForTerrorist(__instance)) return false;
             if (CheckAndEndGameForArsonist(__instance)) return false;
+            if (CheckAndEndGameForJackal(__instance)) return false;
             if (main.currentWinner == CustomWinner.Default)
             {
                 if (Options.CurrentGameMode == CustomGameMode.HideAndSeek)
@@ -170,6 +172,21 @@ namespace TownOfHost
             }
             return false;
         }
+        private static bool CheckAndEndGameForJackal(ShipStatus __instance)
+        {
+            if (main.currentWinner == CustomWinner.Jackal && main.CustomWinTrigger)
+            {
+                __instance.enabled = false;
+                ResetRoleAndEndGame(GameOverReason.ImpostorByKill, false);
+                return true;
+            }
+            else if (CustomRoles.Jackal.isEnable() && Jackal.AliveJackalCount() >= 1 && main.AliveImpostorCount == 0)
+            {
+                RPC.JackalWin();
+                return false;
+            }
+            return false;
+        }
 
 
         private static void EndGameForSabotage(ShipStatus __instance)
@@ -227,7 +244,7 @@ namespace TownOfHost
                             }
 
                             if (playerInfo.Role.TeamType == RoleTeamTypes.Impostor &&
-                            (playerInfo.getCustomRole() != CustomRoles.Sheriff || playerInfo.getCustomRole() != CustomRoles.Arsonist))
+                            (playerInfo.getCustomRole() != CustomRoles.Sheriff || playerInfo.getCustomRole() != CustomRoles.Arsonist || playerInfo.getCustomRole() != CustomRoles.Jackal))
                             {
                                 numImpostorsAlive++;
                             }

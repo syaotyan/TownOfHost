@@ -160,6 +160,34 @@ namespace TownOfHost
                         arsonist.Data.IsDead = true;
                     }
                 }
+                if (CustomRoles.Jackal.isEnable())
+                {
+                    for (var i = 0; i < CustomRoles.Jackal.getCount(); i++)
+                    {
+                        if (AllPlayers.Count <= 0) break;
+                        var jackal = AllPlayers[rand.Next(0, AllPlayers.Count)];
+                        AllPlayers.Remove(jackal);
+                        main.AllPlayerCustomRoles[jackal.PlayerId] = CustomRoles.Jackal;
+                        //ここからDesyncが始まる
+                        if (jackal.PlayerId != 0)
+                        {
+                            //ただしホスト、お前はDesyncするな。
+                            jackal.RpcSetRoleDesync(RoleTypes.Impostor);
+                            foreach (var pc in PlayerControl.AllPlayerControls)
+                            {
+                                if (pc == jackal) continue;
+                                jackal.RpcSetRoleDesync(RoleTypes.Scientist, pc);
+                                pc.RpcSetRoleDesync(RoleTypes.Scientist, jackal);
+                            }
+                        }
+                        else
+                        {
+                            //ホストは代わりにエンジニアにする
+                            jackal.RpcSetRole(RoleTypes.Engineer);
+                        }
+                        jackal.Data.IsDead = true;
+                    }
+                }
             }
             Logger.msg("SelectRolesPatch.Prefix.End");
         }

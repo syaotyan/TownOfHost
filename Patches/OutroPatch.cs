@@ -116,6 +116,19 @@ namespace TownOfHost
                     }
                 }
             }
+            if (main.currentWinner == CustomWinner.Jackal && CustomRoles.Jackal.isEnable())
+            { //Jackal単独勝利
+                TempData.winners = new Il2CppSystem.Collections.Generic.List<WinningPlayerData>();
+                winner = new();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    if (p.PlayerId == main.WonJackalID)
+                    {
+                        TempData.winners.Add(new WinningPlayerData(p.Data));
+                        winner.Add(p);
+                    }
+                }
+            }
             //Opportunist
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
@@ -231,6 +244,11 @@ namespace TownOfHost
                     __instance.BackgroundBar.material.color = Utils.getRoleColor(CustomRoles.Egoist);
                     CustomWinnerText = $"{Utils.getRoleName(CustomRoles.Egoist)}";
                     CustomWinnerColor = Utils.getRoleColorCode(CustomRoles.Egoist);
+                    break;
+                case CustomWinner.Jackal:
+                    __instance.BackgroundBar.material.color = Utils.getRoleColor(CustomRoles.Jackal);
+                    CustomWinnerText = $"{Utils.getRoleName(CustomRoles.Jackal)}";
+                    CustomWinnerColor = Utils.getRoleColorCode(CustomRoles.Jackal);
                     break;
                 //引き分け処理
                 case CustomWinner.Draw:

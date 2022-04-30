@@ -132,7 +132,7 @@ namespace TownOfHost
                 //霊界用暗転バグ対処
                 foreach (var pc in PlayerControl.AllPlayerControls)
                 {
-                    if ((pc.isSheriff() || pc.isArsonist()) && (pc.Data.IsDead || pc.PlayerId == exiledPlayer?.PlayerId)) pc.ResetPlayerCam(19f);
+                    if ((pc.isSheriff() || pc.isArsonist() || pc.isJackal()) && (pc.Data.IsDead || pc.PlayerId == exiledPlayer?.PlayerId)) pc.ResetPlayerCam(19f);
                 }
 
                 return false;
@@ -320,10 +320,9 @@ namespace TownOfHost
 
             //エアシップの場合スポーン位置選択が発生するため死体消し用の会議を5秒遅らせる。
             var additional = PlayerControl.GameOptions.MapId == 4 ? 5f : 0f;
-
-            if (CheckForEndVotingPatch.recall)
+            foreach (var pc in PlayerControl.AllPlayerControls)
             {
-                foreach (var pc in PlayerControl.AllPlayerControls)
+                if (CheckForEndVotingPatch.recall)
                 {
                     if (!pc.Data.IsDead)
                     {
@@ -340,6 +339,13 @@ namespace TownOfHost
                             0.5f + additional, "Cancel Meeting");
                         break;
                     }
+                }
+                if (CustomRoles.Jackal.isEnable() && (Jackal.AliveJackalCount() >= main.AliveCrewmateCount || main.AliveImpostorCount == 0))//ジャッカルを残した状態でインポスター陣営が全滅した時
+                {
+                    PlayerControl NoSetRoleBot = BotManager.Spawn();
+
+                    PlayerControl BotA = BotManager.Spawn();
+                    BotA.RpcSetRole(RoleTypes.Impostor);
                 }
             }
         }

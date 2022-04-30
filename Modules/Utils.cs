@@ -148,6 +148,7 @@ namespace TownOfHost
                     if (cRole == CustomRoles.MSchrodingerCat) hasTasks = false;
                     if (cRole == CustomRoles.EgoSchrodingerCat) hasTasks = false;
                     if (cRole == CustomRoles.Egoist) hasTasks = false;
+                    if (cRole == CustomRoles.Jackal) hasTasks = false;
                     //foreach (var pc in PlayerControl.AllPlayerControls)
                     //{
                     //if (cRole == CustomRoles.Sheriff && main.SheriffShotLimit[pc.PlayerId] == 0) hasTasks = true;
@@ -555,6 +556,17 @@ namespace TownOfHost
             }
             TownOfHost.Logger.info("生存しているインポスター:" + AliveImpostorCount + "人");
             main.AliveImpostorCount = AliveImpostorCount;
+        }
+        public static void CountAliveCrewmates()
+        {
+            int AliveCrewmateCount = 0;
+            foreach (var pc in PlayerControl.AllPlayerControls)
+            {
+                CustomRoles pc_role = pc.getCustomRole();
+                if (pc_role.isCrewmate() && !pc.Data.IsDead) AliveCrewmateCount++;
+            }
+            TownOfHost.Logger.info("生存しているクルー:" + AliveCrewmateCount + "人");
+            main.AliveCrewmateCount = AliveCrewmateCount;
         }
     }
 }

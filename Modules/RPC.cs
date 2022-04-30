@@ -13,6 +13,7 @@ namespace TownOfHost
         JesterExiled,
         TerroristWin,
         ArsonistWin,
+        JackalWin,
         SchrodingerCatExiled,
         EndGame,
         PlaySound,
@@ -86,6 +87,10 @@ namespace TownOfHost
                 case (byte)CustomRPC.ArsonistWin:
                     byte wonArsonist = reader.ReadByte();
                     RPC.ArsonistWin(wonArsonist);
+                    break;
+                case (byte)CustomRPC.JackalWin:
+                    byte wonJackal = reader.ReadByte();
+                    RPC.JackalWin(wonJackal);
                     break;
                 case (byte)CustomRPC.SchrodingerCatExiled:
                     byte exiledSchrodingerCat = reader.ReadByte();
@@ -252,6 +257,32 @@ namespace TownOfHost
             foreach (var p in PlayerControl.AllPlayerControls)
             {
                 if (p.PlayerId == arsonistID) Arsonist = p;
+                if (p.Data.Role.IsImpostor)
+                {
+                    if (Imp == null) Imp = p;
+                    Impostors.Add(p);
+                }
+            }
+            if (AmongUsClient.Instance.AmHost)
+            {
+                foreach (var imp in Impostors)
+                {
+                    imp.RpcSetRole(RoleTypes.GuardianAngel);
+                }
+                new LateTask(() => main.CustomWinTrigger = true,
+                0.2f, "Custom Win Trigger Task");
+            }
+        }
+        public static void JackalWin(byte jackalID)
+        {
+            main.WonJackalID = jackalID;
+            main.currentWinner = CustomWinner.Jackal;
+            PlayerControl Jackal = null;
+            PlayerControl Imp = null;
+            List<PlayerControl> Impostors = new List<PlayerControl>();
+            foreach (var p in PlayerControl.AllPlayerControls)
+            {
+                if (p.PlayerId == jackalID) Jackal = p;
                 if (p.Data.Role.IsImpostor)
                 {
                     if (Imp == null) Imp = p;

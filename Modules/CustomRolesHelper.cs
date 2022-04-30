@@ -35,6 +35,7 @@ namespace TownOfHost
                 role == CustomRoles.Arsonist ||
                 role == CustomRoles.Egoist ||
                 role == CustomRoles.EgoSchrodingerCat ||
+                role == CustomRoles.Jackal ||
                 role == CustomRoles.Troll ||
                 role == CustomRoles.Fox;
         }
@@ -48,12 +49,18 @@ namespace TownOfHost
                 role == CustomRoles.Impostor ||
                 role == CustomRoles.Shapeshifter;
         }
+        public static bool isCrewmate(this CustomRoles role) {
+            
+            return isImpostorTeam(role) == false &&
+                   isNeutral(role) == false;
+        }
         public static bool CanUseKillButton(this CustomRoles role)
         {
             bool canUse =
                 role.isImpostor() ||
                 role == CustomRoles.Sheriff ||
-                role == CustomRoles.Arsonist;
+                role == CustomRoles.Arsonist ||
+                role == CustomRoles.Jackal;
 
             if (role == CustomRoles.Mafia)
             {

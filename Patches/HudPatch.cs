@@ -114,6 +114,10 @@ namespace TownOfHost
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)
                         player.Data.Role.CanUseKillButton = true;
                     break;
+                case CustomRoles.Jackal:
+                    player.Data.Role.CanVent = true;
+                    player.Data.Role.CanUseKillButton = true;
+                    break;
             }
 
             if (!__instance.TaskText.text.Contains(TaskTextPrefix)) __instance.TaskText.text = TaskTextPrefix + "\r\n" + __instance.TaskText.text;
@@ -177,7 +181,7 @@ namespace TownOfHost
         public static void Postfix(PlayerControl __instance, [HarmonyArgument(0)] bool active, [HarmonyArgument(1)] RoleTeamTypes team)
         {
             var player = PlayerControl.LocalPlayer;
-            if ((player.getCustomRole() == CustomRoles.Sheriff || player.getCustomRole() == CustomRoles.Arsonist) && !player.Data.IsDead)
+            if ((player.getCustomRole() == CustomRoles.Sheriff || player.getCustomRole() == CustomRoles.Arsonist || player.getCustomRole() == CustomRoles.Jackal) && !player.Data.IsDead)
             {
                 ((Renderer)__instance.MyRend).material.SetColor("_OutlineColor", Utils.getRoleColor(player.getCustomRole()));
             }
@@ -189,7 +193,7 @@ namespace TownOfHost
         public static void Prefix(PlayerControl __instance, [HarmonyArgument(0)] ref bool protecting)
         {
             var player = PlayerControl.LocalPlayer;
-            if ((player.getCustomRole() == CustomRoles.Sheriff || player.getCustomRole() == CustomRoles.Arsonist) &&
+            if ((player.getCustomRole() == CustomRoles.Sheriff || player.getCustomRole() == CustomRoles.Arsonist || player.getCustomRole() == CustomRoles.Jackal) &&
                 __instance.Data.Role.Role != RoleTypes.GuardianAngel)
             {
                 protecting = true;
@@ -217,6 +221,12 @@ namespace TownOfHost
                     __instance.ImpostorVentButton.ToggleVisible(false);
                     __instance.AbilityButton.ToggleVisible(false);
                     break;
+                case CustomRoles.Jackal:
+                    __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
+                    __instance.SabotageButton.ToggleVisible(false);
+                    __instance.ImpostorVentButton.ToggleVisible(isActive && !player.Data.IsDead);
+                    __instance.AbilityButton.ToggleVisible(false);
+                    break;
             }
         }
     }
@@ -226,7 +236,7 @@ namespace TownOfHost
         public static void Prefix(ref RoleTeamTypes __state)
         {
             var player = PlayerControl.LocalPlayer;
-            if (player.isSheriff() || player.isArsonist())
+            if (player.isSheriff() || player.isArsonist() || player.isJackal())
             {
                 __state = player.Data.Role.TeamType;
                 player.Data.Role.TeamType = RoleTeamTypes.Crewmate;
@@ -236,7 +246,7 @@ namespace TownOfHost
         public static void Postfix(ref RoleTeamTypes __state)
         {
             var player = PlayerControl.LocalPlayer;
-            if (player.isSheriff() || player.isArsonist())
+            if (player.isSheriff() || player.isArsonist() || player.isJackal())
             {
                 player.Data.Role.TeamType = __state;
             }

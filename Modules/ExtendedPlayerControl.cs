@@ -525,7 +525,8 @@ namespace TownOfHost
             bool canUse =
                 pc.getCustomRole().isImpostor() ||
                 pc.isSheriff() ||
-                pc.isArsonist();
+                pc.isArsonist() ||
+                pc.isJackal();
 
             if (pc.isMafia())
             {
@@ -633,5 +634,6 @@ namespace TownOfHost
         public static bool isMSchrodingerCat(this PlayerControl target) { return target.getCustomRole() == CustomRoles.MSchrodingerCat; }
         public static bool isEgoSchrodingerCat(this PlayerControl target) { return target.getCustomRole() == CustomRoles.EgoSchrodingerCat; }
         public static bool isEgoist(this PlayerControl target) { return target.getCustomRole() == CustomRoles.Egoist; }
+        public static bool isJackal(this PlayerControl target) { return target.getCustomRole() == CustomRoles.Jackal; }
     }
 }

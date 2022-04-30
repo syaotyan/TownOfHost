@@ -277,6 +277,7 @@ namespace TownOfHost
             SetupRoleOptions(50500, CustomRoles.Arsonist);
             ArsonistDouseTime = CustomOption.Create(50510, Color.white, "ArsonistDouseTime", 3, 1, 10, 1, CustomRoleSpawnChances[CustomRoles.Arsonist]);
             ArsonistCooldown = CustomOption.Create(50511, Color.white, "ArsonistCooldown", 10, 5, 100, 1, CustomRoleSpawnChances[CustomRoles.Arsonist]);
+            SetupRoleOptions(50700, CustomRoles.Jackal);
             SetupRoleOptions(50000, CustomRoles.Jester);
             SetupRoleOptions(50100, CustomRoles.Opportunist);
             SetupRoleOptions(50200, CustomRoles.Terrorist);
