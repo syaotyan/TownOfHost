@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.IL2CPP;
@@ -195,6 +195,7 @@ namespace TownOfHost
                 {CustomRoles.SchrodingerCat, "#696969"},
                 {CustomRoles.CSchrodingerCat, "#ffffff"},
                 {CustomRoles.MSchrodingerCat, "#ff0000"},
+                {CustomRoles.ISchrodingerCat, "#ff0000"},
                 {CustomRoles.EgoSchrodingerCat, "#5600ff"},
                 {CustomRoles.Egoist, "#5600ff"},
                 {CustomRoles.Fox, "#e478ff"},
@@ -275,8 +276,10 @@ namespace TownOfHost
         Opportunist,
         SchrodingerCat,//第三陣営のシュレディンガーの猫
         CSchrodingerCat,//クルー陣営のシュレディンガーの猫
-        MSchrodingerCat,//インポスター陣営のシュレディンガーの猫
-        EgoSchrodingerCat,//エゴイスト陣営のシュレディンガーの猫
+        MSchrodingerCat,//インポスター陣営(マッドメイト)のシュレディンガーの猫
+        ISchrodingerCat,//インポスター陣営(インポスター)のシュレディンガーの猫
+        EgoSchrodingerCat,//エゴイスト陣営(キルできない)のシュレディンガーの猫
+        EgoSchrodingerCatKiller,//エゴイスト陣営(キルできる)のシュレディンガーの猫
         Terrorist,
         //HideAndSeak
         Fox,

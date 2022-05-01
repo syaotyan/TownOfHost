@@ -91,6 +91,7 @@ namespace TownOfHost
         public static CustomOption ArsonistCooldown;
         public static CustomOption CanBeforeSchrodingerCatWinTheCrewmate;
         public static CustomOption SchrodingerCatExiledTeamChanges;
+        public static CustomOption SchrodingerCatKillRoleChange;
 
         // HideAndSeek
         public static CustomOption AllowCloseDoors;
@@ -285,6 +286,7 @@ namespace TownOfHost
             SetupRoleOptions(50400, CustomRoles.SchrodingerCat);
             CanBeforeSchrodingerCatWinTheCrewmate = CustomOption.Create(50410, Color.white, "CanBeforeSchrodingerCatWinTheCrewmate", false, CustomRoleSpawnChances[CustomRoles.SchrodingerCat]);
             SchrodingerCatExiledTeamChanges = CustomOption.Create(50411, Color.white, "SchrodingerCatExiledTeamChanges", false, CustomRoleSpawnChances[CustomRoles.SchrodingerCat]);
+            SchrodingerCatKillRoleChange = CustomOption.Create(50412, Color.white, "SchrodingerCatKillRoleChange", false, CustomRoleSpawnChances[CustomRoles.SchrodingerCat]);
             SetupRoleOptions(50600, CustomRoles.Egoist);
 
             EnableLastImpostor = CustomOption.Create(80000, Utils.getRoleColor(CustomRoles.Impostor), "LastImpostor", false, null, true)

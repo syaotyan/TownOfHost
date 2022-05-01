@@ -296,7 +296,11 @@ namespace TownOfHost
                 __instance.RpcGuardAndKill(target);
                 NameColorManager.Instance.RpcAdd(__instance.PlayerId, target.PlayerId, $"{Utils.getRoleColorCode(CustomRoles.SchrodingerCat)}");
                 if (__instance.getCustomRole().isImpostor())
+                {
                     target.RpcSetCustomRole(CustomRoles.MSchrodingerCat);
+                    if (Options.SchrodingerCatKillRoleChange.GetBool())
+                        target.RpcSetCustomRole(CustomRoles.ISchrodingerCat);
+                }
                 if (__instance.isSheriff())
                     target.RpcSetCustomRole(CustomRoles.CSchrodingerCat);
                 if (__instance.isEgoist())

@@ -26,6 +26,7 @@ Terrorist,Terrorist,テロリスト
 SchrodingerCat,SchrodingerCat,シュレディンガーの猫
 CSchrodingerCat,SchrodingerCat,シュレディンガーの猫
 MSchrodingerCat,SchrodingerCat,シュレディンガーの猫
+ISchrodingerCat,SchrodingerCat,シュレディンガーの猫
 EgoSchrodingerCat,SchrodingerCat,シュレディンガーの猫
 Opportunist,Opportunist,オポチュニスト
 Egoist,Egoist,エゴイスト
@@ -64,6 +65,7 @@ OpportunistInfo,Do whatever it takes to survive,とにかく生き残りまし�
 SchrodingerCatInfo,You belong to the team that got killed,殺された陣営に所属しろ
 CSchrodingerCatInfo,I became an ally of my crewmates,クルーメイトの味方になった
 MSchrodingerCatInfo,I became an ally of my Impostors,インポスターの味方になった
+ISchrodingerCatInfo,I became an ally of my Impostors,インポスターの味方になった
 EgoSchrodingerCatInfo,I became an ally of my Egoist,エゴイストの味方になった
 TerroristInfo,Die after finishing your tasks,タスクを済ませ、自爆しよう
 EgoistInfo,Let's dominate the Imposter victory,インポスター勝利を独占しよう
@@ -187,6 +189,7 @@ SheriffShotLimit,Sheriff Shot Limit,シェリフのキル可能回数
 MayorAdditionalVote,Mayor Additional Votes Count,メイヤーの追加投票の個数
 CanBeforeSchrodingerCatWinTheCrewmate,Before the role change you can win with your crewmate team,役職変化前であれば、クルー陣営と勝利できる
 SchrodingerCatExiledTeamChanges,SchrodingerCat Exiled Team Changes,シュレディンガーの猫が吊られた際、陣営が変化する
+SchrodingerCatKillRoleChange,SchrodingerCat Kill Role Change,シュレディンガーの猫がキルできる役職に変化できる
 SerialKillerCooldown,SerialKiller's KillCooldown,シリアルキラーのキルクール
 SerialKillerLimit,SerialKiller's timelimit,シリアルキラーが自爆する時間
 ArsonistDouseTime,Arsonist Douse Time,アーソニストの塗り時間

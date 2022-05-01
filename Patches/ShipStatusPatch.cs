@@ -164,7 +164,7 @@ namespace TownOfHost
                 systemType == SystemTypes.Comms && //システムタイプが通信室
                 (player.isMadmate() || player.isMadGuardian())) //実行者がMadmateかMadGuardian)
                 return false;
-            if (player.isSheriff() || player.isArsonist())
+            if (player.isSheriff() || player.isArsonist() || player.isSchrodingerCat())
             {
                 if (systemType == SystemTypes.Sabotage && AmongUsClient.Instance.GameMode != GameModes.FreePlay) return false; //シェリフにサボタージュをさせない ただしフリープレイは例外
             }

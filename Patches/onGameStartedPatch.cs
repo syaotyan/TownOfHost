@@ -169,6 +169,34 @@ namespace TownOfHost
                         arsonist.Data.IsDead = true;
                     }
                 }
+                if (CustomRoles.SchrodingerCat.isEnable() && (Options.SchrodingerCatKillRoleChange.GetBool()))
+                {
+                    for (var i = 0; i < CustomRoles.SchrodingerCat.getCount(); i++)
+                    {
+                        if (AllPlayers.Count <= 0) break;
+                        var schrodingercat = AllPlayers[rand.Next(0, AllPlayers.Count)];
+                        AllPlayers.Remove(schrodingercat);
+                        main.AllPlayerCustomRoles[schrodingercat.PlayerId] = CustomRoles.SchrodingerCat;
+                        //ここからDesyncが始まる
+                        if (schrodingercat.PlayerId != 0)
+                        {
+                            //ただしホスト、お前はDesyncするな。
+                            schrodingercat.RpcSetRoleDesync(RoleTypes.Impostor);
+                            foreach (var pc in PlayerControl.AllPlayerControls)
+                            {
+                                if (pc == schrodingercat) continue;
+                                schrodingercat.RpcSetRoleDesync(RoleTypes.Scientist, pc);
+                                pc.RpcSetRoleDesync(RoleTypes.Scientist, schrodingercat);
+                            }
+                        }
+                        else
+                        {
+                            //ホストは代わりに普通のクルーにする
+                            schrodingercat.RpcSetRole(RoleTypes.Crewmate);
+                        }
+                        schrodingercat.Data.IsDead = true;
+                    }
+                }
             }
             Logger.msg("SelectRolesPatch.Prefix.End");
         }
