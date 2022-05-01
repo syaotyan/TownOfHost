@@ -462,6 +462,7 @@ namespace TownOfHost
                     || SeerKnowsImpostors //seerがインポスターを知っている状態
                     || seer.getCustomRole().isImpostor() //seerがインポスター
                     || seer.isEgoSchrodingerCat() //seerがエゴイストのシュレディンガーの猫
+                    || seer.isJackal() //seerがジャッカル
                     || NameColorManager.Instance.GetDataBySeer(seer.PlayerId).Count > 0 //seer視点用の名前色データが一つ以上ある
                     || seer.isArsonist()
                     || main.SpelledPlayer.Count > 0
@@ -512,6 +513,8 @@ namespace TownOfHost
                             TargetPlayerName = $"<color={getRoleColorCode(CustomRoles.Egoist)}>{TargetPlayerName}</color>";
                         else if (seer.isEgoSchrodingerCat() && target.isEgoist())
                             TargetPlayerName = $"<color={getRoleColorCode(CustomRoles.Egoist)}>{TargetPlayerName}</color>";
+                        else if (seer.isJackal() && target.isJackal())
+                            TargetPlayerName = $"<color={getRoleColorCode(CustomRoles.Jackal)}>{TargetPlayerName}</color>";
                         else
                         {
                             //NameColorManager準拠の処理
@@ -552,7 +555,7 @@ namespace TownOfHost
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
                 CustomRoles pc_role = pc.getCustomRole();
-                if (pc_role.isImpostor() && !pc.Data.IsDead) AliveImpostorCount++;
+                if (pc_role.isImpostor() && !pc.Data.IsDead && pc.PlayerId <= 14) AliveImpostorCount++;
             }
             TownOfHost.Logger.info("生存しているインポスター:" + AliveImpostorCount + "人");
             main.AliveImpostorCount = AliveImpostorCount;
@@ -563,7 +566,7 @@ namespace TownOfHost
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
                 CustomRoles pc_role = pc.getCustomRole();
-                if (pc_role.isCrewmate() && !pc.Data.IsDead) AliveCrewmateCount++;
+                if (pc_role.isCrewmate() && !pc.Data.IsDead && pc.PlayerId <= 15) AliveCrewmateCount++;
             }
             TownOfHost.Logger.info("生存しているクルー:" + AliveCrewmateCount + "人");
             main.AliveCrewmateCount = AliveCrewmateCount;

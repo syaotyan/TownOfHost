@@ -307,6 +307,11 @@ namespace TownOfHost
             }
             //シュレディンガーの猫の役職変化処理終了
             //第三陣営キル能力持ちが追加されたら、その陣営を味方するシュレディンガーの猫の役職を作って上と同じ書き方で書いてください
+            if (__instance.isJackal() && target.isJackal())
+            {
+                main.BlockKilling[__instance.PlayerId] = false;
+                return false;
+            }
 
             //==キル処理==
             __instance.RpcMurderPlayer(target);

@@ -183,6 +183,7 @@ namespace TownOfHost
             main.witchMeeting = true;
             Utils.NotifyRoles(isMeeting: true);
             main.witchMeeting = false;
+            BotManager.AllDespawn();
         }
         public static void Postfix(MeetingHud __instance)
         {
@@ -267,6 +268,13 @@ namespace TownOfHost
                 {
                     //変更対象の名前をエゴイスト色にする
                     pva.NameText.text = $"<color={Utils.getRoleColorCode(CustomRoles.Egoist)}>{pva.NameText.text}</color>";
+                }
+                if (PlayerControl.LocalPlayer.isJackal() && //LocalPlayerがImpostor
+                    pc.isJackal() //変更対象がEgoist
+                )
+                {
+                    //変更対象の名前をジャッカル色にする
+                    pva.NameText.text = $"<color={Utils.getRoleColorCode(CustomRoles.Jackal)}>{pva.NameText.text}</color>";
                 }
 
                 //会議画面ではインポスター自身の名前にSnitchマークはつけません。
