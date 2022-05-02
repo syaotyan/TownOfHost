@@ -348,7 +348,7 @@ namespace TownOfHost
                         break;
                     }
                 }
-                if (CustomRoles.Jackal.isEnable() && (Jackal.AliveJackalCount() >= 1 && main.AliveImpostorCount == 0))//ジャッカルを残した状態でインポスター陣営が全滅した時
+                if (CustomRoles.Jackal.isEnable() && (Jackal.AliveJackalCount() >= 1 && main.AliveImpostorCount == 0))//ジャッカルを残した状態でインポスター陣営が全滅した場合
                 {
                     PlayerControl NoSetRoleBot = BotManager.Spawn();
 
@@ -356,7 +356,7 @@ namespace TownOfHost
                     BotA.PlayerId = 15;
                     BotA.RpcSetRole(RoleTypes.Impostor);
                 }
-                if (CustomRoles.Jackal.isEnable() && main.AliveCrewmateCount == 0 && (Jackal.AliveJackalCount() == main.AliveImpostorCount))//ジャッカルを残した状態でインポスター陣営が全滅した時
+                if (CustomRoles.Jackal.isEnable() && main.AliveCrewmateCount == 0 && (Jackal.AliveJackalCount() == main.AliveImpostorCount))//クルーメイト陣営が全滅した状態でジャッカルとインポスター陣営が同数になった場合
                 {
                     PlayerControl NoSetRoleBot = BotManager.Spawn();
 
