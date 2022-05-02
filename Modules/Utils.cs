@@ -580,7 +580,7 @@ namespace TownOfHost
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
                 CustomRoles pc_role = pc.getCustomRole();
-                if (pc_role.isImpostor() && !pc.Data.IsDead && pc.PlayerId <= 14) AliveImpostorCount++;
+                if (pc_role.isImpostor() && !pc.Data.IsDead && pc.PlayerId <= 14) AliveImpostorCount++;//pc.PlayerId <= 14はIdが15以上であるBotをカウントしない様にする
             }
             TownOfHost.Logger.info("生存しているインポスター:" + AliveImpostorCount + "人");
             main.AliveImpostorCount = AliveImpostorCount;
@@ -591,7 +591,7 @@ namespace TownOfHost
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
                 CustomRoles pc_role = pc.getCustomRole();
-                if (pc_role.isCrewmate() && !pc.Data.IsDead && pc.PlayerId <= 15) AliveCrewmateCount++;
+                if (pc_role.isCrewmate() && !pc.Data.IsDead && pc.PlayerId <= 14) AliveCrewmateCount++;//pc.PlayerId <= 14はIdが15以上であるBotをカウントしない様にする
             }
             TownOfHost.Logger.info("生存しているクルー:" + AliveCrewmateCount + "人");
             main.AliveCrewmateCount = AliveCrewmateCount;
