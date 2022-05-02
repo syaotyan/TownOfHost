@@ -348,21 +348,50 @@ namespace TownOfHost
                         break;
                     }
                 }
+
+                //これ以降の処理はジャッカルのためのBotスポーンのコードです
                 if (CustomRoles.Jackal.isEnable() && (Jackal.AliveJackalCount() >= 1 && main.AliveImpostorCount == 0))//ジャッカルを残した状態でインポスター陣営が全滅した場合
                 {
                     PlayerControl NoSetRoleBot = BotManager.Spawn();
-
                     PlayerControl BotA = BotManager.Spawn();
                     BotA.PlayerId = 15;
-                    BotA.RpcSetRole(RoleTypes.Impostor);
+                    BotA.RpcSetRole(RoleTypes.Impostor);//インポスターのBotをスポーン
                 }
+
                 if (CustomRoles.Jackal.isEnable() && main.AliveCrewmateCount == 0 && (Jackal.AliveJackalCount() == main.AliveImpostorCount))//クルーメイト陣営が全滅した状態でジャッカルとインポスター陣営が同数になった場合
                 {
                     PlayerControl NoSetRoleBot = BotManager.Spawn();
-
                     PlayerControl BotB = BotManager.Spawn();
                     BotB.PlayerId = 16;
-                    BotB.RpcSetRole(RoleTypes.Crewmate);
+                    BotB.RpcSetRole(RoleTypes.Crewmate);//クルーメイトのBotをスポーン
+                }
+
+                if (CustomRoles.Jackal.isEnable() && main.AliveCrewmateCount == 0 && (Jackal.AliveJackalCount() == 1 && main.AliveImpostorCount == 2))//クルーメイト陣営が全滅した状態でジャッカルが1人、インポスター陣営が2人になった場合
+                {
+                    PlayerControl NoSetRoleBot = BotManager.Spawn();
+                    PlayerControl BotC = BotManager.Spawn();
+                    BotC.PlayerId = 17;
+                    BotC.RpcSetRole(RoleTypes.Crewmate);//クルーメイトのBotをスポーン
+
+                    PlayerControl BotD = BotManager.Spawn();
+                    BotD.PlayerId = 18;
+                    BotD.RpcSetRole(RoleTypes.Crewmate);//クルーメイトのBotをスポーン
+                }
+
+                if (CustomRoles.Jackal.isEnable() && main.AliveCrewmateCount == 0 && (Jackal.AliveJackalCount() == 1 && main.AliveImpostorCount == 3))//クルーメイト陣営が全滅した状態でジャッカルが1人、インポスター陣営が3人になった場合
+                {
+                    PlayerControl NoSetRoleBot = BotManager.Spawn();
+                    PlayerControl BotE = BotManager.Spawn();
+                    BotE.PlayerId = 19;
+                    BotE.RpcSetRole(RoleTypes.Crewmate);//クルーメイトのBotをスポーン
+
+                    PlayerControl BotF = BotManager.Spawn();
+                    BotF.PlayerId = 20;
+                    BotF.RpcSetRole(RoleTypes.Crewmate);//クルーメイトのBotをスポーン
+
+                    PlayerControl BotG = BotManager.Spawn();
+                    BotG.PlayerId = 21;
+                    BotG.RpcSetRole(RoleTypes.Crewmate);//クルーメイトのBotをスポーン
                 }
             }
         }
