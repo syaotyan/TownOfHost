@@ -183,7 +183,7 @@ namespace TownOfHost
             main.witchMeeting = true;
             Utils.NotifyRoles(isMeeting: true);
             main.witchMeeting = false;
-            BotManager.AllDespawn();
+            BotManager.AllDespawn();//Botは会議中に必要ないため全員デスポーン
         }
         public static void Postfix(MeetingHud __instance)
         {
@@ -353,7 +353,16 @@ namespace TownOfHost
                     PlayerControl NoSetRoleBot = BotManager.Spawn();
 
                     PlayerControl BotA = BotManager.Spawn();
+                    BotA.PlayerId = 15;
                     BotA.RpcSetRole(RoleTypes.Impostor);
+                }
+                if (CustomRoles.Jackal.isEnable() && main.AliveCrewmateCount == 0 && (Jackal.AliveJackalCount() == main.AliveImpostorCount))//ジャッカルを残した状態でインポスター陣営が全滅した時
+                {
+                    PlayerControl NoSetRoleBot = BotManager.Spawn();
+
+                    PlayerControl BotB = BotManager.Spawn();
+                    BotB.PlayerId = 16;
+                    BotB.RpcSetRole(RoleTypes.Crewmate);
                 }
             }
         }
