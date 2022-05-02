@@ -393,6 +393,14 @@ namespace TownOfHost
                     BotG.PlayerId = 21;
                     BotG.RpcSetRole(RoleTypes.Crewmate);//クルーメイトのBotをスポーン
                 }
+
+                if (CustomRoles.Jackal.isEnable() && main.AliveCrewmateCount + Jackal.AliveJackalCount() == main.AliveImpostorCount)//クルーメイト陣営+ジャッカル陣営がインポスター陣営と同じ人数になった場合
+                {
+                    PlayerControl NoSetRoleBot = BotManager.Spawn();
+                    PlayerControl BotH = BotManager.Spawn();
+                    BotH.PlayerId = 22;
+                    BotH.RpcSetRole(RoleTypes.Crewmate);//クルーメイトのBotをスポーン
+                }
             }
         }
     }
