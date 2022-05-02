@@ -348,7 +348,7 @@ namespace TownOfHost
                         break;
                     }
                 }
-                if (CustomRoles.Jackal.isEnable() && (Jackal.AliveJackalCount() >= main.AliveCrewmateCount || main.AliveImpostorCount == 0))//ジャッカルを残した状態でインポスター陣営が全滅した時
+                if (CustomRoles.Jackal.isEnable() && (Jackal.AliveJackalCount() >= 1 && main.AliveImpostorCount == 0))//ジャッカルを残した状態でインポスター陣営が全滅した時
                 {
                     PlayerControl NoSetRoleBot = BotManager.Spawn();
 

@@ -1,4 +1,3 @@
-using Hazel;
 
 namespace TownOfHost
 {
