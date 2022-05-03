@@ -15,7 +15,7 @@ namespace TownOfHost
             bot.PlayerId = 15;
             GameData.Instance.AddPlayer(bot);
             AmongUsClient.Instance.Spawn(bot, -2, SpawnFlags.None);
-            bot.transform.position = new Vector2(999f,999f);
+            bot.transform.position = new Vector3(999f,999f,999f);
             bot.NetTransform.enabled = true;
             GameData.Instance.RpcSetTasks(bot.PlayerId, new byte[0]);
 

@@ -84,6 +84,8 @@ namespace TownOfHost
         {
             if (statistics.TeamImpostorsAlive >= statistics.TotalAlive - statistics.TeamImpostorsAlive)
             {
+                if (CustomRoles.Jackal.isEnable() && Jackal.AliveJackalCount() > 0) 
+                    return false;
                 __instance.enabled = false;
                 GameOverReason endReason;
                 switch (TempData.LastDeathReason)
