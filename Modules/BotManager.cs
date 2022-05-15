@@ -9,7 +9,7 @@ namespace TownOfHost
     public static class BotManager
     {
         public static List<PlayerControl> Bots = new List<PlayerControl>();
-        public static PlayerControl Spawn(string name = "", int id = -1)
+        public static PlayerControl Spawn(string name = "", int id = +1)
         {
             PlayerControl bot = UnityEngine.Object.Instantiate(AmongUsClient.Instance.PlayerPrefab);
             bot.PlayerId = 15;
@@ -19,12 +19,8 @@ namespace TownOfHost
             bot.NetTransform.enabled = true;
             GameData.Instance.RpcSetTasks(bot.PlayerId, new byte[0]);
 
-
-            bot.RpcSetColor((byte)PlayerControl.LocalPlayer.CurrentOutfit.ColorId);
-            bot.RpcSetName(PlayerControl.LocalPlayer.name);
-            bot.RpcSetPet(PlayerControl.LocalPlayer.CurrentOutfit.PetId);
-            bot.RpcSetSkin(PlayerControl.LocalPlayer.CurrentOutfit.SkinId);
-            bot.RpcSetNamePlate(PlayerControl.LocalPlayer.CurrentOutfit.NamePlateId);
+            bot.RpcSetColor(1);
+            bot.RpcSetName("Bot");
 
             Bots.Add(bot);
             return bot;

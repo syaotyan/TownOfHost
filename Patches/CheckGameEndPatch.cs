@@ -17,7 +17,7 @@ namespace TownOfHost
             if (CheckAndEndGameForJester(__instance)) return false;
             if (CheckAndEndGameForTerrorist(__instance)) return false;
             if (CheckAndEndGameForArsonist(__instance)) return false;
-            if (CheckAndEndGameForJackal(__instance)) return false;
+            if (CheckAndEndGameForJackal(__instance, statistics)) return false;
             if (main.currentWinner == CustomWinner.Default)
             {
                 if (Options.CurrentGameMode == CustomGameMode.HideAndSeek)
@@ -82,10 +82,8 @@ namespace TownOfHost
 
         private static bool CheckAndEndGameForImpostorWin(ShipStatus __instance, PlayerStatistics statistics)
         {
-            if (statistics.TeamImpostorsAlive >= statistics.TotalAlive - statistics.TeamImpostorsAlive)
+            if (statistics.TeamImpostorsAlive >= statistics.TotalAlive - statistics.TeamImpostorsAlive && statistics.TeamJackalsAlive == 0)
             {
-                if (CustomRoles.Jackal.isEnable() && Jackal.AliveJackalCount() > 0) 
-                    return false;
                 __instance.enabled = false;
                 GameOverReason endReason;
                 switch (TempData.LastDeathReason)
@@ -174,7 +172,7 @@ namespace TownOfHost
             }
             return false;
         }
-        private static bool CheckAndEndGameForJackal(ShipStatus __instance)
+        private static bool CheckAndEndGameForJackal(ShipStatus __instance, PlayerStatistics statistics)
         {
             if (main.currentWinner == CustomWinner.Jackal && main.CustomWinTrigger)
             {
@@ -182,10 +180,10 @@ namespace TownOfHost
                 ResetRoleAndEndGame(GameOverReason.ImpostorByKill, false);
                 return true;
             }
-            else if (CustomRoles.Jackal.isEnable() && Jackal.AliveJackalCount() >= main.AliveCrewmateCount && main.AliveImpostorCount == 0)
+            else if (statistics.TeamJackalsAlive >= statistics.TotalAlive - statistics.TeamJackalsAlive && statistics.TeamImpostorsAlive == 0)
             {
                 RPC.JackalWin();
-                return false;
+                return true;
             }
             return false;
         }
@@ -215,6 +213,7 @@ namespace TownOfHost
         internal class PlayerStatistics
         {
             public int TeamImpostorsAlive { get; set; }
+            public int TeamJackalsAlive { get; set; }
             public int TotalAlive { get; set; }
 
             public PlayerStatistics(ShipStatus __instance)
@@ -225,6 +224,7 @@ namespace TownOfHost
             private void GetPlayerCounts()
             {
                 int numImpostorsAlive = 0;
+                int numJackalsAlive = 0;
                 int numTotalAlive = 0;
 
                 for (int i = 0; i < GameData.Instance.PlayerCount; i++)
@@ -237,24 +237,35 @@ namespace TownOfHost
                         {
                             if (Options.CurrentGameMode != CustomGameMode.HideAndSeek || !hasHideAndSeekRole)
                             {
+                                if (playerInfo.PlayerId < 15)
+                                {
                                 numTotalAlive++;//HideAndSeek以外
+                                }
                             }
                             else
                             {
                                 //HideAndSeek中
-                                if (role == CustomRoles.Crewmate) numTotalAlive++;
+                                if (role == CustomRoles.Crewmate && playerInfo.PlayerId < 15) numTotalAlive++;
+                            }
+                            if (role == CustomRoles.Jackal && playerInfo.PlayerId < 15)
+                            {
+                                numJackalsAlive++;
                             }
 
                             if (playerInfo.Role.TeamType == RoleTeamTypes.Impostor &&
                             (playerInfo.getCustomRole() != CustomRoles.Sheriff || playerInfo.getCustomRole() != CustomRoles.Arsonist || playerInfo.getCustomRole() != CustomRoles.Jackal))
                             {
-                                numImpostorsAlive++;
+                                if (playerInfo.PlayerId < 15)
+                                {
+                                    numImpostorsAlive++;
+                                }
                             }
                         }
                     }
                 }
 
                 TeamImpostorsAlive = numImpostorsAlive;
+                TeamJackalsAlive = numJackalsAlive;
                 TotalAlive = numTotalAlive;
             }
         }
