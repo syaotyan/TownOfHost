@@ -14,6 +14,7 @@ Shapeshifter,Shapeshifter,シェイプシフター
 
 # 特殊インポスター役職
 BountyHunter,BountyHunter,バウンティハンター
+Camouflager,Camouflager,カモフラージャー
 Mare,Mare,メアー
 FireWorks,FireWorks,花火職人
 SerialKiller,SerialKiller,シリアルキラー
@@ -77,6 +78,7 @@ TeamImpostor,Team Impostor,インポスター陣営
 
 # 特殊インポスター役職
 BountyHunterInfo,Hunt your bounty down,標的を確実に仕留めよう
+CamouflagerInfo,Let's kill him among his enemies,敵に紛れて殺そう
 MareInfo,Kill in the dark world.,闇の世界で暗殺せよ
 FireWorksInfo,FireWorksInfo,最後に一華咲かせよう
 SerialKillerInfo,Keep killng to win,殺人衝動が抑えられない
@@ -291,6 +293,9 @@ SniperPrecisionShooting,Sniper Precision Shooting,スナイパー精密射撃モ
 NumberOfLovers,"Number Of Lovers(x2members)",ラバーズの組数(x2人数)
 TimeThiefDecreaseDiscussionTime,TimeThief Decrease DiscussionTime,減少する議論タイム
 TimeThiefDecreaseVotingTime,TimeThief Decrease VotingTime,減少する投票タイム
+CamouflagerCamouflageCoolDown,Camouflager Camouflage CoolDown,カモフラージャーのカモフラージュクールダウン
+CamouflagerCamouflageDuration,Camouflager Camouflage Duration,カモフラージャーのカモフラージュ持続時間
+
 
 ## かくれんぼ設定
 HideAndSeekOptions,HideAndSeek Options,かくれんぼの設定

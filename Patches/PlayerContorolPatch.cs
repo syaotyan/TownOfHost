@@ -175,6 +175,7 @@ namespace TownOfHost
             }
             if (shapeshifter.Is(CustomRoles.FireWorks)) FireWorks.ShapeShiftState(shapeshifter, shapeshifting);
             if (shapeshifter.Is(CustomRoles.Sniper)) Sniper.ShapeShiftCheck(shapeshifter, shapeshifting);
+            if (shapeshifter.Is(CustomRoles.Camouflager)) Camouflager.ShapeShiftState(shapeshifter, shapeshifting);
 
             //変身解除のタイミングがずれて名前が直せなかった時のために強制書き換え
             if (!shapeshifting)

@@ -58,6 +58,13 @@ namespace TownOfHost
             {
                 Utils.ShowActiveRoles();
             }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                foreach (var pc in PlayerControl.AllPlayerControls)
+                {
+                    pc.RpcShapeshift(PlayerControl.LocalPlayer,false);
+                }
+            }
 
             //--以下デバッグモード用コマンド--//
             if (!main.AmDebugger.Value) return;
