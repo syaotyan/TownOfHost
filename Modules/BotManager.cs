@@ -9,26 +9,41 @@ namespace TownOfHost
     public static class BotManager
     {
         public static List<PlayerControl> Bots = new List<PlayerControl>();
-        public static PlayerControl Spawn(string name = "", int id = +1)
+        public static PlayerControl Spawn(string name = "", byte BotPlayerId = 1)
         {
-            PlayerControl bot = UnityEngine.Object.Instantiate(AmongUsClient.Instance.PlayerPrefab);
-            bot.PlayerId = 15;
+            byte id = 0;
+            foreach (PlayerControl p in PlayerControl.AllPlayerControls)
+            {
+                if (p.PlayerId > id)
+                    {
+                        id = p.PlayerId;
+                    }
+            }
+            var bot = UnityEngine.Object.Instantiate(AmongUsClient.Instance.PlayerPrefab);
+            id++;
+            bot.PlayerId = id;
             GameData.Instance.AddPlayer(bot);
             AmongUsClient.Instance.Spawn(bot, -2, SpawnFlags.None);
             bot.transform.position = new Vector3(999f,999f,999f);
             bot.NetTransform.enabled = true;
             GameData.Instance.RpcSetTasks(bot.PlayerId, new byte[0]);
 
+            bot.RpcSetName(name);
             bot.RpcSetColor(1);
-            bot.RpcSetName("Bot");
+            bot.RpcSetHat("hat_NoHat");
+            bot.RpcSetPet("peet_EmptyPet");
+            bot.RpcSetVisor("visor_EmptyVisor");
+            bot.RpcSetNamePlate("nameplate_NoPlate");
+            bot.RpcSetSkin("skin_None");
+            GameData.Instance.RpcSetTasks(bot.PlayerId, new byte[0]);
 
             Bots.Add(bot);
             return bot;
         }
-        public static void BotDespawn(this PlayerControl player)
+        public static void BotDespawn(this PlayerControl bot)
         {
-            Bots.RemoveAll(x => player.PlayerId == x.PlayerId);
-            player.Despawn();
+            Bots.RemoveAll(x => bot.PlayerId == x.PlayerId);
+            AmongUsClient.Instance.Despawn(bot);
         }
         public static void AllDespawn()
         {

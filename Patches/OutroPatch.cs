@@ -14,6 +14,7 @@ namespace TownOfHost
 
             Logger.info("ゲームが終了", "Phase");
             //winnerListリセット
+            BotManager.AllDespawn();//Botは最終画面に必要ないため全員デスポーン
             TempData.winners = new Il2CppSystem.Collections.Generic.List<WinningPlayerData>();
             main.additionalwinners = new HashSet<AdditionalWinners>();
             var winner = new List<PlayerControl>();
