@@ -748,8 +748,10 @@ namespace TownOfHost
                     pc.RpcGuardAndKill(pc);
                     main.BountyTimer.Add(pc.PlayerId, 0f);
                 }
+                if (pc.Is(CustomRoles.Camouflager))
+                    pc.RpcGuardAndKill(pc);
                 if (PlayerControl.GameOptions.MapId != 4)//Airship以外
-                    if (pc.Is(CustomRoles.SerialKiller) || pc.Is(CustomRoles.BountyHunter))
+                    if (pc.Is(CustomRoles.SerialKiller) || pc.Is(CustomRoles.BountyHunter) || pc.Is(CustomRoles.Camouflager))
                     {
                         //main.AirshipMeetingTimer.Add(pc.PlayerId, 0f);
                         main.AllPlayerKillCooldown[pc.PlayerId] *= 2; //GuardAndKillを実行する関係でキルクールを2倍に

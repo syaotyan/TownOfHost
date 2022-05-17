@@ -12,8 +12,8 @@ namespace TownOfHost
     {
         static int Id = 2500;
 
-        static CustomOption CamouflagerCamouflageCoolDown;
-        static CustomOption CamouflagerCamouflageDuration;
+        public static CustomOption CamouflagerCamouflageCoolDown;
+        public static CustomOption CamouflagerCamouflageDuration;
         public static void SetupCustomOption()
         {
             Options.SetupRoleOptions(Id, CustomRoles.Camouflager);
@@ -25,7 +25,7 @@ namespace TownOfHost
             Logger.info($"Camouflager ShapeShift");
             if (pc == null || pc.Data.IsDead || !shapeshifting) return;
             foreach (PlayerControl target in PlayerControl.AllPlayerControls)
-                target.RpcShapeshift(PlayerControl.LocalPlayer, false);
+                target.RpcShapeshift(PlayerControl.LocalPlayer, true);//誰がカモフラージュしたか分からなくさせるために、全員にアニメーションを再生
         }
     }
 }
