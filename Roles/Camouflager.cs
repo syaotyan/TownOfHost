@@ -1,10 +1,4 @@
-using Hazel;
-using HarmonyLib;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Threading.Tasks;
-using System.Linq;
-using static TownOfHost.Translator;
 
 namespace TownOfHost
 {
@@ -22,10 +16,22 @@ namespace TownOfHost
         }
         public static void ShapeShiftState(PlayerControl pc, bool shapeshifting)
         {
-            Logger.info($"Camouflager ShapeShift");
-            if (pc == null || pc.Data.IsDead || !shapeshifting) return;
-            foreach (PlayerControl target in PlayerControl.AllPlayerControls)
-                target.RpcShapeshift(PlayerControl.LocalPlayer, true);//誰がカモフラージュしたか分からなくさせるために、全員にアニメーションを再生
+            if (shapeshifting)
+            {
+                Logger.info($"Camouflager ShapeShift");
+                if (pc == null || pc.Data.IsDead) return;
+                foreach (PlayerControl target in PlayerControl.AllPlayerControls)
+                    target.RpcShapeshift(PlayerControl.LocalPlayer, true);//誰がカモフラージュしたか分からなくさせるために、全員にアニメーションを再生
+                return;
+            }
+            else
+            {
+                Logger.info($"Camouflager Revert ShapeShift");
+                if (pc == null || pc.Data.IsDead) return;
+                foreach (PlayerControl target in PlayerControl.AllPlayerControls)
+                    target.RpcRevertShapeshift(true);
+                return;
+            }
         }
     }
 }
