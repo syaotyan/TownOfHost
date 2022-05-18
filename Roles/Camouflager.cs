@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TownOfHost
@@ -14,24 +15,40 @@ namespace TownOfHost
             CamouflagerCamouflageCoolDown = CustomOption.Create(Id + 10, Color.white, "Camouflager Camouflage CoolDown", 2.5f, 2.5f, 60f, 2.5f, Options.CustomRoleSpawnChances[CustomRoles.Camouflager]);
             CamouflagerCamouflageDuration = CustomOption.Create(Id + 11, Color.white, "Camouflager Camouflage Duration", 2.5f, 2.5f, 60f, 2.5f, Options.CustomRoleSpawnChances[CustomRoles.Camouflager]);
         }
-        public static void ShapeShiftState(PlayerControl pc, bool shapeshifting)
+        public static bool DidCamo = false;
+        public static void ShapeShiftState(PlayerControl shifter, bool shapeshifting)
         {
-            if (shapeshifting)
+            if (DidCamo)
             {
-                Logger.info($"Camouflager ShapeShift");
-                if (pc == null || pc.Data.IsDead) return;
-                foreach (PlayerControl target in PlayerControl.AllPlayerControls)
-                    target.RpcShapeshift(PlayerControl.LocalPlayer, true);//誰がカモフラージュしたか分からなくさせるために、全員にアニメーションを再生
-                return;
-            }
-            else
-            {
-                Logger.info($"Camouflager Revert ShapeShift");
-                if (pc == null || pc.Data.IsDead) return;
+                if (!shapeshifting) return;
+                if (shifter == null || shifter.Data.IsDead) return;
+                Logger.info($"Camouflager Revert ShapeShift", "Camouflager");
                 foreach (PlayerControl target in PlayerControl.AllPlayerControls)
                     target.RpcRevertShapeshift(true);
-                return;
+                DidCamo = false;
             }
+            else if (shapeshifting)
+            {
+                if (shifter == null || shifter.Data.IsDead) return;
+                Logger.info($"Camouflager ShapeShift", "Camouflager");
+                foreach (PlayerControl target in PlayerControl.AllPlayerControls)
+                {
+                    if (AmongUsClient.Instance.AmHost)
+                    {
+                        target.RpcSetColor(6);
+                        target.RpcSetHat("");
+                        target.RpcSetSkin("");
+                        target.RpcSetVisor("");
+                        target.RpcSetPet("");
+                        target.RpcSetName("");
+                    }
+
+                    if (target == shifter) continue;
+                    target.RpcShapeshift(PlayerControl.LocalPlayer, true);//誰がカモフラージュしたか分からなくさせるために、全員にアニメーションを再生
+                }
+                DidCamo = true;
+            }
+            //DidCamo = !DidCamo;
         }
     }
 }

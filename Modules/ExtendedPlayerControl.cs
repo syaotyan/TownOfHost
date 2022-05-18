@@ -156,7 +156,7 @@ namespace TownOfHost
                 else
                 {
                     //ガードはがされていたら剥がした人のキルにする
-                    if(main.LastKiller.TryGetValue(target,out var lastKiller))
+                    if (main.LastKiller.TryGetValue(target, out var lastKiller))
                     {
                         lastKiller?.RpcMurderPlayer(target);
 
@@ -361,7 +361,7 @@ namespace TownOfHost
                 case CustomRoles.Camouflager:
                     opt.RoleOptions.ShapeshifterCooldown = Camouflager.CamouflagerCamouflageCoolDown.GetFloat();
                     opt.RoleOptions.ShapeshifterDuration = Camouflager.CamouflagerCamouflageDuration.GetFloat();
-                break;
+                    break;
 
 
                 InfinityVent:

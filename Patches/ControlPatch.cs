@@ -62,7 +62,7 @@ namespace TownOfHost
             {
                 foreach (var pc in PlayerControl.AllPlayerControls)
                 {
-                    pc.RpcShapeshift(PlayerControl.LocalPlayer,false);
+                    pc.RpcRevertShapeshift(true);
                 }
             }
 
