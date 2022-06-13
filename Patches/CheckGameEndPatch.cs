@@ -1,5 +1,6 @@
 
 using HarmonyLib;
+using Hazel;
 
 namespace TownOfHost
 {
@@ -16,9 +17,10 @@ namespace TownOfHost
 
             if (CheckAndEndGameForJester(__instance)) return false;
             if (CheckAndEndGameForTerrorist(__instance)) return false;
+            if (CheckAndEndGameForExecutioner(__instance)) return false;
             if (CheckAndEndGameForArsonist(__instance)) return false;
             if (CheckAndEndGameForJackal(__instance, statistics)) return false;
-            if (main.currentWinner == CustomWinner.Default)
+            if (Main.currentWinner == CustomWinner.Default)
             {
                 if (Options.CurrentGameMode == CustomGameMode.HideAndSeek)
                 {
@@ -85,19 +87,12 @@ namespace TownOfHost
             if (statistics.TeamImpostorsAlive >= statistics.TotalAlive - statistics.TeamImpostorsAlive && statistics.TeamJackalsAlive == 0)
             {
                 __instance.enabled = false;
-                GameOverReason endReason;
-                switch (TempData.LastDeathReason)
+                var endReason = TempData.LastDeathReason switch
                 {
-                    case DeathReason.Exile:
-                        endReason = GameOverReason.ImpostorByVote;
-                        break;
-                    case DeathReason.Kill:
-                        endReason = GameOverReason.ImpostorByKill;
-                        break;
-                    default:
-                        endReason = GameOverReason.ImpostorByVote;
-                        break;
-                }
+                    DeathReason.Exile => GameOverReason.ImpostorByVote,
+                    DeathReason.Kill => GameOverReason.ImpostorByKill,
+                    _ => GameOverReason.ImpostorByVote,
+                };
                 ResetRoleAndEndGame(endReason, false);
                 return true;
             }
@@ -130,10 +125,14 @@ namespace TownOfHost
         {
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
-                var hasRole = main.AllPlayerCustomRoles.TryGetValue(pc.PlayerId, out var role);
+                var hasRole = Main.AllPlayerCustomRoles.TryGetValue(pc.PlayerId, out var role);
                 if (!hasRole) return false;
-                if (role == CustomRoles.Troll && pc.Data.IsDead)
+                if (role == CustomRoles.HASTroll && pc.Data.IsDead)
                 {
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.TrollWin, Hazel.SendOption.Reliable, -1);
+                    writer.Write(pc.PlayerId);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                    RPC.TrollWin(pc.PlayerId);
                     __instance.enabled = false;
                     ResetRoleAndEndGame(GameOverReason.ImpostorByKill, false);
                     return true;
@@ -144,7 +143,7 @@ namespace TownOfHost
 
         private static bool CheckAndEndGameForJester(ShipStatus __instance)
         {
-            if (main.currentWinner == CustomWinner.Jester && main.CustomWinTrigger)
+            if (Main.currentWinner == CustomWinner.Jester && Main.CustomWinTrigger)
             {
                 __instance.enabled = false;
                 ResetRoleAndEndGame(GameOverReason.ImpostorByKill, false);
@@ -154,7 +153,17 @@ namespace TownOfHost
         }
         private static bool CheckAndEndGameForTerrorist(ShipStatus __instance)
         {
-            if (main.currentWinner == CustomWinner.Terrorist && main.CustomWinTrigger)
+            if (Main.currentWinner == CustomWinner.Terrorist && Main.CustomWinTrigger)
+            {
+                __instance.enabled = false;
+                ResetRoleAndEndGame(GameOverReason.ImpostorByKill, false);
+                return true;
+            }
+            return false;
+        }
+        private static bool CheckAndEndGameForExecutioner(ShipStatus __instance)
+        {
+            if (Main.currentWinner == CustomWinner.Executioner && Main.CustomWinTrigger)
             {
                 __instance.enabled = false;
                 ResetRoleAndEndGame(GameOverReason.ImpostorByKill, false);
@@ -164,7 +173,7 @@ namespace TownOfHost
         }
         private static bool CheckAndEndGameForArsonist(ShipStatus __instance)
         {
-            if (main.currentWinner == CustomWinner.Arsonist && main.CustomWinTrigger)
+            if (Main.currentWinner == CustomWinner.Arsonist && Main.CustomWinTrigger)
             {
                 __instance.enabled = false;
                 ResetRoleAndEndGame(GameOverReason.ImpostorByKill, false);
@@ -174,7 +183,7 @@ namespace TownOfHost
         }
         private static bool CheckAndEndGameForJackal(ShipStatus __instance, PlayerStatistics statistics)
         {
-            if (main.currentWinner == CustomWinner.Jackal && main.CustomWinTrigger)
+            if (Main.currentWinner == CustomWinner.Jackal && Main.CustomWinTrigger)
             {
                 __instance.enabled = false;
                 ResetRoleAndEndGame(GameOverReason.ImpostorByKill, false);
@@ -199,7 +208,8 @@ namespace TownOfHost
         {
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
-                if (pc.isSheriff() || main.currentWinner != CustomWinner.Arsonist && pc.isArsonist())
+                var LoseImpostorRole = Main.AliveImpostorCount == 0 ? pc.Is(RoleType.Impostor) : pc.Is(CustomRoles.Egoist);
+                if (pc.Is(CustomRoles.Sheriff) || (!(Main.currentWinner == CustomWinner.Arsonist) && pc.Is(CustomRoles.Arsonist)) || LoseImpostorRole)
                 {
                     pc.RpcSetRole(RoleTypes.GuardianAngel);
                 }
@@ -230,7 +240,7 @@ namespace TownOfHost
                 for (int i = 0; i < GameData.Instance.PlayerCount; i++)
                 {
                     GameData.PlayerInfo playerInfo = GameData.Instance.AllPlayers[i];
-                    var hasHideAndSeekRole = main.AllPlayerCustomRoles.TryGetValue((byte)i, out var role);
+                    var hasHideAndSeekRole = Main.AllPlayerCustomRoles.TryGetValue((byte)i, out var role);
                     if (!playerInfo.Disconnected)
                     {
                         if (!playerInfo.IsDead)
@@ -251,9 +261,11 @@ namespace TownOfHost
                             {
                                 numJackalsAlive++;
                             }
+                                if (role is not CustomRoles.HASFox and not CustomRoles.HASTroll) numTotalAlive++;
+                            }
 
                             if (playerInfo.Role.TeamType == RoleTeamTypes.Impostor &&
-                            (playerInfo.getCustomRole() != CustomRoles.Sheriff || playerInfo.getCustomRole() != CustomRoles.Arsonist || playerInfo.getCustomRole() != CustomRoles.Jackal))
+                            (playerInfo.GetCustomRole() != CustomRoles.Sheriff || playerInfo.GetCustomRole() != CustomRoles.Arsonist) || playerInfo.GetCustomRole() != CustomRoles.Jackal)
                             {
                                 if (playerInfo.PlayerId < 15)
                                 {

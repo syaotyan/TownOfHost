@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using HarmonyLib;
-using UnityEngine;
 using UnhollowerBaseLib;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace TownOfHost
@@ -287,6 +285,9 @@ namespace TownOfHost
             {
                 switch (ob.Title)
                 {
+                    case StringNames.EngineerCooldown:
+                        ob.Cast<NumberOption>().ValidRange = new FloatRange(0, 180);
+                        break;
                     case StringNames.ShapeshifterCooldown:
                         ob.Cast<NumberOption>().ValidRange = new FloatRange(0, 180);
                         break;
