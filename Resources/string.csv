@@ -321,7 +321,7 @@ DeathReason.Sniped,Sniped,狙撃
 DeathReason.Disconnected,Disconnected,回線切断
 DeathReason.etc,etc,その他
 Alive,Alive,生存
-Win,Wins,勝利
+Win, Wins,勝利
 Last,Last,ラスト
 
 ## リアクターの時間制御
@@ -412,3 +412,4 @@ VampireBiteButtonText,Bite,噛む
 ArsonistDouseButtonText,Douse,塗る
 PuppeteerOperateButtonText,Operate,操る
 BountyHunterChangeButtonText,Change,変更
+TeamJackal,Team Jackal,ジャッカル

@@ -319,6 +319,8 @@ namespace TownOfHost
             if (Main.currentWinner != CustomWinner.Draw)
             {
                 textRenderer.text = $"<color={CustomWinnerColor}>{CustomWinnerText}{AdditionalWinnerText}{GetString("Win")}</color>";
+                if (Main.currentWinner == CustomWinner.Jackal)
+                    CustomWinnerText = GetString("TeamJackal");
             }
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
