@@ -262,10 +262,9 @@ namespace TownOfHost
                                 numJackalsAlive++;
                             }
                                 if (role is not CustomRoles.HASFox and not CustomRoles.HASTroll) numTotalAlive++;
-                            }
 
-                            if (playerInfo.Role.TeamType == RoleTeamTypes.Impostor &&
-                            (playerInfo.GetCustomRole() != CustomRoles.Sheriff || playerInfo.GetCustomRole() != CustomRoles.Arsonist) || playerInfo.GetCustomRole() != CustomRoles.Jackal)
+                            if (playerInfo.Role.TeamType == RoleTeamTypes.Impostor &&(
+                            playerInfo.GetCustomRole() != CustomRoles.Sheriff || playerInfo.GetCustomRole() != CustomRoles.Arsonist || playerInfo.GetCustomRole() != CustomRoles.Jackal))
                             {
                                 if (playerInfo.PlayerId < 15)
                                 {
