@@ -327,27 +327,7 @@ namespace TownOfHost
         {
             Main.WonJackalID = jackalID;
             Main.currentWinner = CustomWinner.Jackal;
-            PlayerControl Jackal = null;
-            PlayerControl Imp = null;
-            List<PlayerControl> Impostors = new();
-            foreach (var p in PlayerControl.AllPlayerControls)
-            {
-                if (p.PlayerId == jackalID) Jackal = p;
-                if (p.Data.Role.IsImpostor)
-                {
-                    if (Imp == null) Imp = p;
-                    Impostors.Add(p);
-                }
-            }
-            if (AmongUsClient.Instance.AmHost)
-            {
-                foreach (var imp in Impostors)
-                {
-                    imp.RpcSetRole(RoleTypes.GuardianAngel);
-                }
-                new LateTask(() => Main.CustomWinTrigger = true,
-                0.2f, "Custom Win Trigger Task");
-            }
+            CustomWinTrigger(jackalID);
         }
         public static void EndGame()
         {

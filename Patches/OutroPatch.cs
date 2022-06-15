@@ -135,7 +135,7 @@ namespace TownOfHost
                 {
                     if (p.Is(CustomRoles.Jackal)/* || p.isEgoSchrodingerCat()*/)
                     {
-                        TempData.winners.Add(new WinningPlayerData(p.Data));
+                        winner.Add(p);
                     }
                 }
             }

@@ -197,14 +197,14 @@ namespace TownOfHost
                         arsonist.Data.IsDead = true;
                     }
                 }
-                if (CustomRoles.Jackal.isEnable())
+                if (CustomRoles.Jackal.IsEnable())
                 {
-                    for (var i = 0; i < CustomRoles.Jackal.getCount(); i++)
+                    for (var i = 0; i < CustomRoles.Jackal.GetCount(); i++)
                     {
                         if (AllPlayers.Count <= 0) break;
                         var jackal = AllPlayers[rand.Next(0, AllPlayers.Count)];
                         AllPlayers.Remove(jackal);
-                        main.AllPlayerCustomRoles[jackal.PlayerId] = CustomRoles.Jackal;
+                        Main.AllPlayerCustomRoles[jackal.PlayerId] = CustomRoles.Jackal;
                         //ここからDesyncが始まる
                         if (jackal.PlayerId != 0)
                         {

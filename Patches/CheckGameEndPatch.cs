@@ -86,6 +86,7 @@ namespace TownOfHost
         {
             if (statistics.TeamImpostorsAlive >= statistics.TotalAlive - statistics.TeamImpostorsAlive && statistics.TeamJackalsAlive == 0)
             {
+                if (Jackal.AliveJackalCount() != 0) return false;
                 __instance.enabled = false;
                 var endReason = TempData.LastDeathReason switch
                 {
@@ -103,6 +104,7 @@ namespace TownOfHost
         {
             if (statistics.TeamImpostorsAlive == 0)
             {
+                if (Jackal.AliveJackalCount() != 0) return false;
                 __instance.enabled = false;
                 ResetRoleAndEndGame(GameOverReason.HumansByVote, false);
                 return true;
@@ -209,7 +211,7 @@ namespace TownOfHost
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
                 var LoseImpostorRole = Main.AliveImpostorCount == 0 ? pc.Is(RoleType.Impostor) : pc.Is(CustomRoles.Egoist);
-                if (pc.Is(CustomRoles.Sheriff) || (!(Main.currentWinner == CustomWinner.Arsonist) && pc.Is(CustomRoles.Arsonist)) || LoseImpostorRole)
+                if (pc.Is(CustomRoles.Sheriff) || (!(Main.currentWinner == CustomWinner.Arsonist) && pc.Is(CustomRoles.Arsonist)) ||  (!(Main.currentWinner == CustomWinner.Jackal) && pc.Is(CustomRoles.Jackal)) || LoseImpostorRole)
                 {
                     pc.RpcSetRole(RoleTypes.GuardianAngel);
                 }
