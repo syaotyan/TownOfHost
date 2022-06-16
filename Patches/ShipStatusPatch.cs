@@ -60,6 +60,7 @@ namespace TownOfHost
     [HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.RepairSystem))]
     class RepairSystemPatch
     {
+        public static bool WasCaused = false;
         public static bool Prefix(ShipStatus __instance,
             [HarmonyArgument(0)] SystemTypes systemType,
             [HarmonyArgument(1)] PlayerControl player,
@@ -170,8 +171,19 @@ namespace TownOfHost
             }
             return true;
         }
-        public static void Postfix(ShipStatus __instance)
+        public static void Postfix(ShipStatus __instance, [HarmonyArgument(0)] SystemTypes systemType)
         {
+            switch (systemType)
+            {
+                case SystemTypes.Comms:
+                    if (!WasCaused)
+                    {
+                        WasCaused = true;
+                        Camouflague.Cause();
+                    }
+                    else Camouflague.Revert();
+                    break;
+            }
             Utils.CustomSyncAllSettings();
             new LateTask(
                 () =>
