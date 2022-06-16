@@ -8,8 +8,8 @@ namespace TownOfHost
 {
     public static class BotManager
     {
-        public static List<PlayerControl> Bots = new List<PlayerControl>();
-        public static PlayerControl Spawn(string name = "", byte BotPlayerId = 1)
+        public static List<PlayerControl> Bots = new();
+        public static PlayerControl Spawn(string name = "")
         {
             byte id = 0;
             foreach (PlayerControl p in PlayerControl.AllPlayerControls)

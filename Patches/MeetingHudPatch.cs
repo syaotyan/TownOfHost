@@ -34,15 +34,8 @@ namespace TownOfHost
                 for (var i = 0; i < NumOfSpawnBots; i++)
                 {
                     PlayerControl bot = BotManager.Spawn("暗転" + (i + 1));
-                    if (i == 0)
-                    {
-                        bot.RpcSetRole(RoleTypes.Impostor);
-                        bot.NetTransform.RpcSnapTo(new Vector2(99999999, 99999999));
-                    }
-                    if (i > 0) {
-                        bot.RpcSetRole(RoleTypes.Crewmate);
-                        bot.NetTransform.RpcSnapTo(new Vector2(99999999, 99999999));
-                    }
+                    if (i == 0) bot.RpcSetRole(RoleTypes.Impostor);
+                    if (i > 0) bot.RpcSetRole(RoleTypes.Crewmate);
                 }
                 for (var i = 0; i < __instance.playerStates.Length; i++)
                 {
