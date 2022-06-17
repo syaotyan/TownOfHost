@@ -491,7 +491,11 @@ namespace TownOfHost
 
         public static string GetRealName(this PlayerControl player, bool isMeeting = false)
         {
-            return Camouflague.IsActive ? "" : isMeeting ? player?.Data?.PlayerName : player?.name;
+            string PlayerName = "";
+            if (Camouflague.IsActive) PlayerName = "";
+            else PlayerName = isMeeting ? player?.Data?.PlayerName : player?.name;
+
+            return PlayerName;
         }
 
         public static PlayerControl GetBountyTarget(this PlayerControl player)

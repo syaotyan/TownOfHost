@@ -17,10 +17,14 @@ namespace TownOfHost
         public static void Revert()
         {
             foreach (var player in PlayerControl.AllPlayerControls)
+            {
+                player.RpcSetNameEx(Main.AllPlayerNames[player.PlayerId]);
                 player.RpcRevertSkins();
+            }
 
             IsActive = false;
             RpcToggleCamouflague(IsActive);
+
             Utils.NotifyRoles();
         }
         public static void RpcSetCamouflague(this PlayerControl player)
