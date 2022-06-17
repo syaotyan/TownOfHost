@@ -38,22 +38,22 @@ namespace TownOfHost
                 .EndRpc();
 
             player.SetHat("", colorId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetHat)
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetHatStr)
                 .Write("")
                 .EndRpc();
 
             player.SetSkin("", colorId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetSkin)
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetSkinStr)
                 .Write("")
                 .EndRpc();
 
             player.SetVisor("");
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetVisor)
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetVisorStr)
                 .Write("")
                 .EndRpc();
 
             player.SetPet("");
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetPet)
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetPetStr)
                 .Write("")
                 .EndRpc();
 
@@ -79,22 +79,22 @@ namespace TownOfHost
                 .EndRpc();
 
             player.SetHat(hatId, colorId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetHat)
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetHatStr)
                 .Write(hatId)
                 .EndRpc();
 
             player.SetSkin(skinId, colorId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetSkin)
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetSkinStr)
                 .Write(skinId)
                 .EndRpc();
 
             player.SetVisor(visorId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetVisor)
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetVisorStr)
                 .Write(visorId)
                 .EndRpc();
 
             player.SetPet(petId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetPet)
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetPetStr)
                 .Write(petId)
                 .EndRpc();
 
