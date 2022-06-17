@@ -570,7 +570,7 @@ namespace TownOfHost
                 }
 
                 //RealNameを取得 なければ現在の名前をRealNamesに書き込む
-                string SeerRealName = Camouflague.IsActive && !seer.Data.IsDead ? "" : seer.GetRealName(isMeeting);
+                string SeerRealName = seer.GetRealName(isMeeting);
 
                 //seerの役職名とSelfTaskTextとseerのプレイヤー名とSelfMarkを合成
                 string SelfRoleName = $"<size={fontSize}><color={seer.GetRoleColorCode()}>{seer.GetRoleName()}</color>{SelfTaskText}</size>";
@@ -660,7 +660,7 @@ namespace TownOfHost
                         string TargetRoleText = seer.Data.IsDead && Options.GhostCanSeeOtherRoles.GetBool() ? $"<size={fontSize}><color={target.GetRoleColorCode()}>{target.GetRoleName()}</color>{TargetTaskText}</size>" : "";
 
                         //RealNameを取得 なければ現在の名前をRealNamesに書き込む
-                        string TargetPlayerName = Camouflague.IsActive && !seer.Data.IsDead ? "" : target.GetRealName(isMeeting);
+                        string TargetPlayerName = target.GetRealName(isMeeting);
 
                         //ターゲットのプレイヤー名の色を書き換えます。
                         if (SeerKnowsImpostors) //Seerがインポスターが誰かわかる状態
