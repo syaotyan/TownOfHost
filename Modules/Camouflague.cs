@@ -64,12 +64,12 @@ namespace TownOfHost
                 .Write("")
                 .EndRpc();*/
 
-            player.Shapeshift(PlayerControl.LocalPlayer, false);
+            player.RpcShapeshift(PlayerControl.LocalPlayer, false);
 
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
                 .Write(PlayerControl.LocalPlayer)
                 .Write(false)
-                .EndRpc();
+                .EndRpc();*/
 
             sender.SendMessage();
         }
@@ -112,11 +112,11 @@ namespace TownOfHost
                 .Write(petId)
                 .EndRpc();*/
 
-            player.Shapeshift(player, false);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
+            player.RpcRevertShapeshift(false);
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
                 .Write(player)
                 .Write(false)
-                .EndRpc();
+                .EndRpc();*/
 
             sender.SendMessage();
         }
