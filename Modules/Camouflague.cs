@@ -65,8 +65,8 @@ namespace TownOfHost
                 .EndRpc();*/
 
             player.Shapeshift(PlayerControl.LocalPlayer, false);
+
             sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
-                .Write(player)
                 .Write(PlayerControl.LocalPlayer)
                 .Write(false)
                 .EndRpc();
@@ -114,7 +114,6 @@ namespace TownOfHost
 
             player.Shapeshift(player, false);
             sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
-                .Write(player)
                 .Write(player)
                 .Write(false)
                 .EndRpc();
