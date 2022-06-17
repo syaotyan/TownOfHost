@@ -9,7 +9,9 @@ namespace TownOfHost
         {
             foreach (var player in PlayerControl.AllPlayerControls)
                 player.RpcSetCamouflague();
+
             IsActive = true;
+            RpcToggleCamouflague(IsActive);
             Utils.NotifyRoles();
         }
         public static void Revert()
@@ -17,13 +19,8 @@ namespace TownOfHost
             foreach (var player in PlayerControl.AllPlayerControls)
                 player.RpcRevertSkins();
 
-
-            var sender = CustomRpcSender.Create("Set Camouflague IsActive");
-
             IsActive = false;
-            sender.AutoStartRpc(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ToggleCamouflagueActive)
-                .Write(IsActive)
-                .EndRpc();
+            RpcToggleCamouflague(IsActive);
             Utils.NotifyRoles();
         }
         public static void RpcSetCamouflague(this PlayerControl player)
@@ -101,6 +98,15 @@ namespace TownOfHost
                 .Write(petId)
                 .EndRpc();
 
+            sender.SendMessage();
+        }
+        public static void RpcToggleCamouflague(bool IsActive)
+        {
+            var sender = CustomRpcSender.Create("Set Camouflague IsActive");
+
+            sender.AutoStartRpc(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ToggleCamouflagueActive)
+                .Write(IsActive)
+                .EndRpc();
             sender.SendMessage();
         }
     }
