@@ -85,7 +85,7 @@ namespace TownOfHost
 
             var sender = CustomRpcSender.Create(name: "RpcRevertSkins");
 
-            player.SetName("\n");
+            player.SetName(" ");
 
             player.SetColor(colorId); //グレー
             /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetColor)
