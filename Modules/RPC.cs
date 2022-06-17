@@ -481,46 +481,5 @@ namespace TownOfHost
             writer.Write(bodyColor);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
         }
-        public static void RpcSetHatV2(this PlayerControl player, string hatId)
-        {
-            if (AmongUsClient.Instance.AmClient)
-            {
-                int colorId = player.Data.DefaultOutfit.ColorId;
-                player.SetHat(hatId, colorId);
-            }
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SetHat, SendOption.None, -1);
-            writer.Write(hatId);
-            AmongUsClient.Instance.FinishRpcImmediately(writer);
-        }
-        public static void RpcSetSkinV2(this PlayerControl player, string skinId)
-        {
-            if (AmongUsClient.Instance.AmClient)
-            {
-                int colorId = player.Data.DefaultOutfit.ColorId;
-                player.SetSkin(skinId, colorId);
-            }
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SetSkin, SendOption.None, -1);
-            writer.Write(skinId);
-            AmongUsClient.Instance.FinishRpcImmediately(writer);
-        }
-        public static void RpcSetVisorV2(this PlayerControl player, string visorId)
-        {
-            if (AmongUsClient.Instance.AmClient)
-                player.SetVisor(visorId);
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SetVisor, SendOption.None, -1);
-            writer.Write(visorId);
-            AmongUsClient.Instance.FinishRpcImmediately(writer);
-        }
-        public static void RpcSetPetV2(this PlayerControl player, string petId)
-        {
-            if (AmongUsClient.Instance.AmClient)
-            {
-                int colorId = player.Data.DefaultOutfit.ColorId;
-                player.SetPet(petId, colorId);
-            }
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SetPet, SendOption.None, -1);
-            writer.Write(petId);
-            AmongUsClient.Instance.FinishRpcImmediately(writer);
-        }
     }
 }

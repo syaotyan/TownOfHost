@@ -180,8 +180,14 @@ namespace TownOfHost
                     {
                         WasCaused = true;
                         Camouflague.Cause();
+                        Logger.SendInGame("スキンで人を判断できなくなった...");
                     }
-                    else Camouflague.Revert();
+                    else
+                    {
+                        WasCaused = false;
+                        Camouflague.Revert();
+                        Logger.SendInGame("スキンが元に戻った...");
+                    }
                     break;
             }
             Utils.CustomSyncAllSettings();

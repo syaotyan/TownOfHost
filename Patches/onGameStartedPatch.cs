@@ -35,6 +35,7 @@ namespace TownOfHost
             Main.isCursed = false;
             Main.PuppeteerList = new Dictionary<byte, byte>();
 
+            Main.AllPlayerSkin = new();
             Main.IgnoreReportPlayers = new List<byte>();
             Main.ResetCamPlayerList = new();
 
@@ -85,6 +86,7 @@ namespace TownOfHost
             Main.VisibleTasksCount = true;
             if (__instance.AmHost)
             {
+                SaveSkin();
                 RPC.SyncCustomSettingsRPC();
                 Main.RefixCooldownDelay = 0;
                 if (Options.CurrentGameMode == CustomGameMode.HideAndSeek)
@@ -95,6 +97,18 @@ namespace TownOfHost
             }
             FireWorks.Init();
             Sniper.Init();
+        }
+        private static void SaveSkin()
+        {
+            foreach (var player in PlayerControl.AllPlayerControls)
+            {
+                var color = player.CurrentOutfit.ColorId;
+                var hat = player.CurrentOutfit.HatId;
+                var skin = player.CurrentOutfit.SkinId;
+                var visor = player.CurrentOutfit.VisorId;
+                var pet = player.CurrentOutfit.PetId;
+                Main.AllPlayerSkin[player.PlayerId] = (color, hat, skin, visor, pet);
+            }
         }
     }
     [HarmonyPatch(typeof(RoleManager), nameof(RoleManager.SelectRoles))]

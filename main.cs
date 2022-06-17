@@ -56,6 +56,7 @@ namespace TownOfHost
         public static bool IsFixedCooldown => CustomRoles.Vampire.IsEnable();
         public static float RefixCooldownDelay = 0f;
         public static int BeforeFixMeetingCooldown = 10;
+        public static Dictionary<byte, (int, string, string, string, string)> AllPlayerSkin = new(); //Key : PlayerId, Value : (1: color, 2: hat, 3: skin, 4:visor, 5: pet)
         public static List<byte> ResetCamPlayerList;
         public static List<byte> IgnoreReportPlayers;
         public static List<byte> winnerList;
@@ -166,6 +167,7 @@ namespace TownOfHost
             hasArgumentException = false;
             ExceptionMessage = "";
 
+            AllPlayerSkin = new();
             Main.IgnoreReportPlayers = new List<byte>();
             try
             {
