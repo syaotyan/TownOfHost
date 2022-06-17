@@ -10,7 +10,6 @@ namespace TownOfHost
             foreach (var player in PlayerControl.AllPlayerControls)
             {
                 player.RpcSetCamouflague();
-                break;
             }
 
             IsActive = true;
@@ -22,7 +21,6 @@ namespace TownOfHost
             foreach (var player in PlayerControl.AllPlayerControls)
             {
                 player.RpcRevertSkins();
-                break;
             }
 
             IsActive = false;
@@ -64,12 +62,12 @@ namespace TownOfHost
                 .Write("")
                 .EndRpc();*/
 
-            player.RpcShapeshift(PlayerControl.LocalPlayer, false);
+            player.Shapeshift(PlayerControl.LocalPlayer, false);
 
-            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
                 .Write(PlayerControl.LocalPlayer)
                 .Write(false)
-                .EndRpc();*/
+                .EndRpc();
 
             sender.SendMessage();
         }
@@ -112,11 +110,11 @@ namespace TownOfHost
                 .Write(petId)
                 .EndRpc();*/
 
-            player.RpcRevertShapeshift(false);
-            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
+            player.RpcShapeshift(player, false);
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
                 .Write(player)
                 .Write(false)
-                .EndRpc();*/
+                .EndRpc();
 
             sender.SendMessage();
         }
