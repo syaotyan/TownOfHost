@@ -8,7 +8,10 @@ namespace TownOfHost
         public static void Cause()
         {
             foreach (var player in PlayerControl.AllPlayerControls)
+            {
                 player.RpcSetCamouflague();
+                break;
+            }
 
             IsActive = true;
             RpcToggleCamouflague(IsActive);
@@ -18,8 +21,8 @@ namespace TownOfHost
         {
             foreach (var player in PlayerControl.AllPlayerControls)
             {
-                player.RpcSetNameEx(Main.AllPlayerNames[player.PlayerId]);
                 player.RpcRevertSkins();
+                break;
             }
 
             IsActive = false;
@@ -37,28 +40,35 @@ namespace TownOfHost
             var sender = CustomRpcSender.Create(name: "RpcSetCamouflague");
 
             player.SetColor(15); //グレー
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetColor)
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetColor)
                 .Write(15)
-                .EndRpc();
+                .EndRpc();*/
 
             player.SetHat("", colorId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetHatStr)
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetHatStr)
                 .Write("")
-                .EndRpc();
+                .EndRpc();*/
 
             player.SetSkin("", colorId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetSkinStr)
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetSkinStr)
                 .Write("")
-                .EndRpc();
+                .EndRpc();*/
 
             player.SetVisor("");
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetVisorStr)
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetVisorStr)
                 .Write("")
-                .EndRpc();
+                .EndRpc();*/
 
             player.SetPet("");
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetPetStr)
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetPetStr)
                 .Write("")
+                .EndRpc();*/
+
+            player.Shapeshift(PlayerControl.LocalPlayer, false);
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
+                .Write(player)
+                .Write(PlayerControl.LocalPlayer)
+                .Write(false)
                 .EndRpc();
 
             sender.SendMessage();
@@ -78,28 +88,35 @@ namespace TownOfHost
             var sender = CustomRpcSender.Create(name: "RpcRevertSkins");
 
             player.SetColor(colorId); //グレー
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetColor)
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetColor)
                 .Write(colorId)
-                .EndRpc();
+                .EndRpc();*/
 
             player.SetHat(hatId, colorId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetHatStr)
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetHatStr)
                 .Write(hatId)
-                .EndRpc();
+                .EndRpc();*/
 
             player.SetSkin(skinId, colorId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetSkinStr)
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetSkinStr)
                 .Write(skinId)
-                .EndRpc();
+                .EndRpc();*/
 
             player.SetVisor(visorId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetVisorStr)
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetVisorStr)
                 .Write(visorId)
-                .EndRpc();
+                .EndRpc();*/
 
             player.SetPet(petId);
-            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetPetStr)
+            /*sender.AutoStartRpc(player.NetId, (byte)RpcCalls.SetPetStr)
                 .Write(petId)
+                .EndRpc();*/
+
+            player.Shapeshift(player, false);
+            sender.AutoStartRpc(player.NetId, (byte)RpcCalls.Shapeshift)
+                .Write(player)
+                .Write(player)
+                .Write(false)
                 .EndRpc();
 
             sender.SendMessage();
