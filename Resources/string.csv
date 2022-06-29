@@ -337,7 +337,7 @@ DeathReason.Misfire,Misfire,誤爆
 DeathReason.Torched,Torched,焼殺
 DeathReason.Sniped,Sniped,狙撃
 DeathReason.Execution,Executed,処刑
-DeathReason.Assassination,Assassination,暗殺
+DeathReason.Assassinate,Assassinated,暗殺
 DeathReason.Surrender,Surrendered,降伏
 DeathReason.Disconnected,Disconnected,回線切断
 DeathReason.etc,etc,その他

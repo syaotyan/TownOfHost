@@ -17,7 +17,7 @@ namespace TownOfHost
 
                 if (Assassin.TargetRole == CustomRoles.Marin)
                 {
-                    PlayerState.SetDeathReason(Assassin.AssassinTargetId, PlayerState.DeathReason.Assassination);
+                    PlayerState.SetDeathReason(Assassin.AssassinTargetId, PlayerState.DeathReason.Assassinate);
                     PlayerState.SetDead(Assassin.AssassinTargetId);
                     foreach (var crew in PlayerControl.AllPlayerControls)
                     {
