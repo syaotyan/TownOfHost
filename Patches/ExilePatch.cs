@@ -23,7 +23,7 @@ namespace TownOfHost
                     {
                         if (!PlayerState.isDead[crew.PlayerId] && crew.Is(RoleType.Crewmate) && crew.PlayerId != Assassin.AssassinTargetId)
                         {
-                            PlayerState.SetDeathReason(crew.PlayerId, PlayerState.DeathReason.Assassination);
+                            PlayerState.SetDeathReason(crew.PlayerId, PlayerState.DeathReason.Surrender);
                             PlayerState.SetDead(crew.PlayerId);
                         }
                     }
