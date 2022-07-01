@@ -25,14 +25,14 @@ namespace TownOfHost
             if (Options.CurrentGameMode == CustomGameMode.Standard)
             {
                 //役職一覧
-                text += $"<color={Utils.GetRoleColorCode(CustomRoles.Impostor)}>{GetString("LastImpostor")}:</color> {Options.EnableLastImpostor.GetString()}\n\n";
+                text += $"{Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), GetString("LastImpostor"))}: {Options.EnableLastImpostor.GetString()}\n\n";
                 foreach (var kvp in Options.CustomRoleSpawnChances)
                     if (kvp.Value.GameMode is CustomGameMode.Standard or CustomGameMode.All) //スタンダードか全てのゲームモードで表示する役職
                     {
                         if (kvp.Key == CustomRoles.AssassinAndMarin)
                             text += $"{AssassinAndMarin.DisplayRole()}:</color> {kvp.Value.GetString()}×{kvp.Key.GetCount()}\n";
                         else
-                            text += $"<color={Utils.GetRoleColorCode(kvp.Key)}>{Utils.GetRoleName(kvp.Key)}:</color> {kvp.Value.GetString()}×{kvp.Key.GetCount()}\n";
+                            text += $"{Helpers.ColorString(Utils.GetRoleColor(kvp.Key), Utils.GetRoleName(kvp.Key))}: {kvp.Value.GetString()}×{kvp.Key.GetCount()}\n";
                     }
                 pages.Add(text + "\n\n");
                 text = "";
@@ -43,7 +43,7 @@ namespace TownOfHost
             {
                 if (Options.EnableLastImpostor.GetBool())
                 {
-                    text += $"<color={Utils.GetRoleColorCode(CustomRoles.Impostor)}>{GetString("LastImpostor")}:</color> {Options.EnableLastImpostor.GetString()}\n";
+                    text += $"{Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), GetString("LastImpostor"))}: {Options.EnableLastImpostor.GetString()}\n";
                     text += $"\t{GetString("LastImpostorKillCooldown")}: {Options.LastImpostorKillCooldown.GetString()}\n\n";
                 }
             }
@@ -54,7 +54,7 @@ namespace TownOfHost
                 if (kvp.Key == CustomRoles.AssassinAndMarin)
                     text += $"{AssassinAndMarin.DisplayRole()}:</color> {kvp.Value.GetString()}×{kvp.Key.GetCount()}\n";
                 else
-                    text += $"<color={Utils.GetRoleColorCode(kvp.Key)}>{Utils.GetRoleName(kvp.Key)}:</color> {kvp.Value.GetString()}×{kvp.Key.GetCount()}\n";
+                    text += $"{Helpers.ColorString(Utils.GetRoleColor(kvp.Key), Utils.GetRoleName(kvp.Key))}: {kvp.Value.GetString()}×{kvp.Key.GetCount()}\n";
                 foreach (var c in kvp.Value.Children) //詳細設定をループする
                 {
                     if (c.Name == "Maximum") continue; //Maximumの項目は飛ばす
