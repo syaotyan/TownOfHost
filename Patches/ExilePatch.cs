@@ -7,10 +7,11 @@ namespace TownOfHost
     [HarmonyPatch(typeof(ExileController), nameof(ExileController.Begin))]
     class ExileControllerBeginPatch
     {
-        public static void Postfix(ExileController __instance, [HarmonyArgument(0)] GameData.PlayerInfo exiled)
+        public static void Postfix(ExileController __instance)
         {
             if (Assassin.FinishAssassinMeetingTrigger)
             {
+
                 __instance.completeString = Assassin.ExileText;
 
                 if (!AmongUsClient.Instance.AmHost) return;
@@ -74,25 +75,28 @@ namespace TownOfHost
         {
             Main.witchMeeting = false;
             bool DecidedWinner = false;
-            if (!AmongUsClient.Instance.AmHost) return; //ホスト以外はこれ以降の処理を実行しません
             if (Assassin.FinishAssassinMeetingTrigger)
             {
-                Utils.GetPlayerById(Assassin.TriggerPlayerId)?.RpcSetNameEx(Assassin.TriggerPlayerName);
                 Assassin.FinishAssassinMeetingTrigger = false;
-                foreach (var pc in PlayerControl.AllPlayerControls)
+                if (AmongUsClient.Instance.AmHost)
                 {
-                    Utils.NotifyRoles(isMeeting: true, NoCache: true);
-                    Main.AllPlayerSpeed[pc.PlayerId] = Main.RealOptionsData.PlayerSpeedMod;
-                }
-                Utils.CustomSyncAllSettings();
+                    Utils.GetPlayerById(Assassin.TriggerPlayerId)?.RpcSetNameEx(Assassin.TriggerPlayerName);
+                    foreach (var pc in PlayerControl.AllPlayerControls)
+                    {
+                        Utils.NotifyRoles(isMeeting: true, NoCache: true);
+                        Main.AllPlayerSpeed[pc.PlayerId] = Main.RealOptionsData.PlayerSpeedMod;
+                    }
+                    Utils.CustomSyncAllSettings();
 
-                if (Assassin.TargetRole == CustomRoles.Marin)
-                {
-                    AssassinAndMarin.MarinSelectedInAssassinMeeting();
-                    AssassinAndMarin.GameEndForAssassinMeeting();
-                    return; //インポスター勝利確定なのでこれ以降の処理は不要
+                    if (Assassin.TargetRole == CustomRoles.Marin)
+                    {
+                        AssassinAndMarin.MarinSelectedInAssassinMeeting();
+                        AssassinAndMarin.GameEndForAssassinMeeting();
+                        return; //インポスター勝利確定なのでこれ以降の処理は不要
+                    }
                 }
             }
+            if (!AmongUsClient.Instance.AmHost) return; //ホスト以外はこれ以降の処理を実行しません
             if (exiled != null)
             {
                 PlayerState.SetDeathReason(exiled.PlayerId, PlayerState.DeathReason.Vote);
