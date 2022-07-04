@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
+using InnerNet;
 using Hazel;
 using UnityEngine;
 
@@ -88,6 +88,13 @@ namespace TownOfHost
             TriggerPlayerId = assassin.PlayerId;
             Utils.NotifyRoles();
             Logger.Info("アサシン会議開始", "Special Phase");
+            byte reactorId = 3;
+            if (PlayerControl.GameOptions.MapId == 2) reactorId = 21;
+            MessageWriter SabotageWriter = AmongUsClient.Instance.StartRpcImmediately(ShipStatus.Instance.NetId, (byte)RpcCalls.RepairSystem, SendOption.Reliable, -1);
+            SabotageWriter.Write(reactorId);
+            MessageExtensions.WriteNetObject(SabotageWriter, PlayerControl.LocalPlayer);
+            SabotageWriter.Write((byte)128);
+            AmongUsClient.Instance.FinishRpcImmediately(SabotageWriter);
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
                 Main.AllPlayerSpeed[pc.PlayerId] = 0.00001f;
@@ -109,7 +116,7 @@ namespace TownOfHost
                             HeldMeeting = true;
                         }
                     }
-                }, PlayerControl.GameOptions.MapId == 4 && !BeKilled ? 7f : 0f, "StartAssassinMeeting"); //Airshipなら7sの遅延を追加
+                }, PlayerControl.GameOptions.MapId == 4 && !BeKilled ? 7f : 0.5f, "StartAssassinMeeting"); //Airshipなら7sの遅延を追加
             }
         }
         public static void SendTriggerPlayerInfo(byte playerId)
