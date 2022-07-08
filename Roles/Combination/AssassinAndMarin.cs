@@ -88,13 +88,16 @@ namespace TownOfHost
             TriggerPlayerId = assassin.PlayerId;
             Utils.NotifyRoles();
             Logger.Info("アサシン会議開始", "Special Phase");
-            byte reactorId = 3;
-            if (PlayerControl.GameOptions.MapId == 2) reactorId = 21;
-            MessageWriter SabotageWriter = AmongUsClient.Instance.StartRpcImmediately(ShipStatus.Instance.NetId, (byte)RpcCalls.RepairSystem, SendOption.Reliable, -1);
-            SabotageWriter.Write(reactorId);
-            MessageExtensions.WriteNetObject(SabotageWriter, PlayerControl.LocalPlayer);
-            SabotageWriter.Write((byte)128);
-            AmongUsClient.Instance.FinishRpcImmediately(SabotageWriter);
+            new LateTask(() =>
+            {
+                byte reactorId = 3;
+                if (PlayerControl.GameOptions.MapId == 2) reactorId = 21;
+                MessageWriter SabotageWriter = AmongUsClient.Instance.StartRpcImmediately(ShipStatus.Instance.NetId, (byte)RpcCalls.RepairSystem, SendOption.Reliable, -1);
+                SabotageWriter.Write(reactorId);
+                MessageExtensions.WriteNetObject(SabotageWriter, PlayerControl.LocalPlayer);
+                SabotageWriter.Write((byte)128);
+                AmongUsClient.Instance.FinishRpcImmediately(SabotageWriter);
+            }, 0.5f, "AssassinMeetingSabotageNotify");
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
                 Main.AllPlayerSpeed[pc.PlayerId] = 0.00001f;
