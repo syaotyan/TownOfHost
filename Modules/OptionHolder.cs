@@ -512,7 +512,7 @@ namespace TownOfHost
             var spawnOption = CustomOption.Create(id, Color.white, "AssassinAndMarin", rates, rates[0], null, true, replacementDic: replacementDic)
                 .HiddenOnDisplay(true)
                 .SetGameMode(customGameMode);
-            var countOption = CustomOption.Create(id + 1, Color.white, "NumOfPairs", 1, 1, 3, 1, spawnOption, false, true)
+            var countOption = CustomOption.Create(id + 1, Color.white, "NumOfPairs", 1, 1, 3, 1, spawnOption, false)
                 .HiddenOnDisplay(true)
                 .SetGameMode(customGameMode);
 
