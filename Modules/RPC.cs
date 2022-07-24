@@ -30,6 +30,7 @@ namespace TownOfHost
         RemoveExecutionerTarget,
         SendFireWorksState,
         SetCurrentDousingTarget,
+        SyncParentSheriff,
     }
     public enum Sounds
     {
@@ -191,6 +192,9 @@ namespace TownOfHost
                     byte dousingTargetId = reader.ReadByte();
                     if (PlayerControl.LocalPlayer.PlayerId == arsonistId)
                         Main.currentDousingTarget = dousingTargetId;
+                    break;
+                case CustomRPC.SyncParentSheriff:
+                    Deputy.ReceiveRPC(reader);
                     break;
             }
         }

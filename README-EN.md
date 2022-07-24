@@ -486,6 +486,24 @@ They do not have tasks.<br>
 | Sheriff Can Kill Crewmates As It             |
 | Sheriff Shot Limit                           |
 
+### Deputy
+
+Team : Crewmates<br>
+Decision : Crewmate<br>
+
+Assistants to the Sheriff.<br>
+Completing a certain number of tasks can reduce the number of parent sheriff killcooldown or increase the number of kill count.<br>
+It isn't assigned without a sheriff.<br>
+
+#### Settings
+
+| Settings Name                           |
+| --------------------------------------- |
+| Deputy change option                    |
+| Deputy decrease killcooldown            |
+| Deputy increase shot limit              |
+| Deputy require use ability num of tasks |
+
 ### Snitch
 
 Team : Crewmates<br>
@@ -679,6 +697,16 @@ Example of overlapping job titles: <br>
 ・ Jester Lover: If Jester Lover is banished, you will win as Jester. If the lover is banished by voting, Jester's lover is defeated. <br>
 ・ Bait lover: When the lover is killed and the bait lover dies afterwards, the lover immediately reports the bait lover. <br>
 
+## DisableDevice
+
+Reference source : [SuperNewRoles](https://github.com/ykundesu/SuperNewRoles), [The Other Roles: GM Edition](https://github.com/yukinogatari/TheOtherRoles-GM)<br>
+
+Various devices can be disabled (currently admin only, MiraHQ not supported)
+
+| Settings Name         |
+| --------------------- |
+| Disable Admin         |
+| ・ Which Disable admin |
 ## SabotageTimeControl
 
 The time limit for some sabotage can be changed.

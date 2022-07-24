@@ -238,6 +238,7 @@ namespace TownOfHost
             }
             else
             {
+                if (Options.DisableDevices.GetBool()) { SendMessage(GetString("DisableDevicesInfo")); }
                 if (Options.SyncButtonMode.GetBool()) { SendMessage(GetString("SyncButtonModeInfo")); }
                 if (Options.SabotageTimeControl.GetBool()) { SendMessage(GetString("SabotageTimeControlInfo")); }
                 if (Options.RandomMapsMode.GetBool()) { SendMessage(GetString("RandomMapsModeInfo")); }
@@ -245,6 +246,7 @@ namespace TownOfHost
                 foreach (var role in Enum.GetValues(typeof(CustomRoles)).Cast<CustomRoles>())
                 {
                     if (role is CustomRoles.HASFox or CustomRoles.HASTroll) continue;
+                    if (!CustomRoles.Sheriff.IsEnable() && role == CustomRoles.Deputy) continue;
                     if (role.IsEnable() && !role.IsVanilla()) SendMessage(GetRoleName(role) + GetString(Enum.GetName(typeof(CustomRoles), role) + "InfoLong"));
                 }
                 if (Options.EnableLastImpostor.GetBool()) { SendMessage(GetRoleName(CustomRoles.LastImpostor) + GetString("LastImpostorInfoLong")); }
@@ -276,6 +278,7 @@ namespace TownOfHost
                 foreach (var role in Options.CustomRoleCounts)
                 {
                     if (!role.Key.IsEnable()) continue;
+                    if (!CustomRoles.Sheriff.IsEnable() && role.Key == CustomRoles.Deputy) continue;
                     bool isFirst = true;
                     foreach (var c in Options.CustomRoleSpawnChances[role.Key].Children)
                     {
@@ -306,6 +309,10 @@ namespace TownOfHost
                     }
                 }
                 if (Options.EnableLastImpostor.GetBool()) text += String.Format("\n{0}:{1}", GetString("LastImpostorKillCooldown"), Options.LastImpostorKillCooldown.GetString());
+                if (Options.DisableDevices.GetBool())
+                {
+                    if (Options.DisableDevices.GetBool()) text += String.Format("\n{0}:{1}", Options.DisableAdmin.GetName(disableColor: true), Options.WhichDisableAdmin.GetString());
+                }
                 if (Options.SyncButtonMode.GetBool()) text += String.Format("\n{0}:{1}", GetString("SyncedButtonCount"), Options.SyncedButtonCount.GetInt());
                 if (Options.SabotageTimeControl.GetBool())
                 {
@@ -334,7 +341,11 @@ namespace TownOfHost
             foreach (CustomRoles role in Enum.GetValues(typeof(CustomRoles)))
             {
                 if (role is CustomRoles.HASFox or CustomRoles.HASTroll) continue;
-                if (role.IsEnable()) text += string.Format("\n{0}:{1}x{2}", GetRoleName(role), $"{role.GetChance() * 100}%", role.GetCount());
+                if (role.IsEnable())
+                {
+                    if (!CustomRoles.Sheriff.IsEnable() && role == CustomRoles.Deputy) continue;
+                    text += string.Format("\n{0}:{1}x{2}", GetRoleName(role), $"{role.GetChance() * 100}%", role.GetCount());
+                }
             }
             SendMessage(text, PlayerId);
         }
@@ -611,17 +622,17 @@ namespace TownOfHost
                 if (seer.Data.IsDead //seerが死んでいる
                     || SeerKnowsImpostors //seerがインポスターを知っている状態
                     || seer.GetCustomRole().IsImpostor() //seerがインポスター
-                    || seer.Is(CustomRoles.EgoSchrodingerCat) //seerがエゴイストのシュレディンガーの猫
                     || NameColorManager.Instance.GetDataBySeer(seer.PlayerId).Count > 0 //seer視点用の名前色データが一つ以上ある
-                    || seer.Is(CustomRoles.Arsonist)
-                    || seer.Is(CustomRoles.Lovers)
                     || Main.SpelledPlayer.Count > 0
-                    || seer.Is(CustomRoles.Executioner)
-                    || seer.Is(CustomRoles.Doctor) //seerがドクター
-                    || seer.Is(CustomRoles.Puppeteer)
-                    || IsActive(SystemTypes.Electrical)
                     || NoCache
                     || ForceLoop
+                    || seer.GetCustomRole() is CustomRoles.EgoSchrodingerCat or
+                        CustomRoles.Arsonist or
+                        CustomRoles.Lovers or
+                        CustomRoles.Executioner or
+                        CustomRoles.Doctor or
+                        CustomRoles.Puppeteer or
+                        CustomRoles.Deputy
                 )
                 {
                     foreach (var target in PlayerControl.AllPlayerControls)
@@ -706,6 +717,8 @@ namespace TownOfHost
                             var ncd = NameColorManager.Instance.GetData(seer.PlayerId, target.PlayerId);
                             TargetPlayerName = ncd.OpenTag + TargetPlayerName + ncd.CloseTag;
                         }
+                        TargetPlayerName = Deputy.VisibleParent(seer, target, TargetPlayerName);
+
                         foreach (var ExecutionerTarget in Main.ExecutionerTarget)
                         {
                             if ((seer.PlayerId == ExecutionerTarget.Key || seer.Data.IsDead) && //seerがKey or Dead
@@ -725,10 +738,10 @@ namespace TownOfHost
                         //適用
                         target.RpcSetNamePrivate(TargetName, true, seer, force: NoCache);
 
-                        TownOfHost.Logger.Info("NotifyRoles-Loop2-" + target.GetNameWithRole() + ":END", "NotifyRoles");
+                        Logger.Info("NotifyRoles-Loop2-" + target.GetNameWithRole() + ":END", "NotifyRoles");
                     }
                 }
-                TownOfHost.Logger.Info("NotifyRoles-Loop1-" + seer.GetNameWithRole() + ":END", "NotifyRoles");
+                Logger.Info("NotifyRoles-Loop1-" + seer.GetNameWithRole() + ":END", "NotifyRoles");
             }
             Main.witchMeeting = false;
         }
@@ -824,7 +837,7 @@ namespace TownOfHost
         public static (int, int) GetDousedPlayerCount(byte playerId)
         {
             int doused = 0, all = 0; //学校で習った書き方
-            //多分この方がMain.isDousedでforeachするより他のアーソニストの分ループ数少なくて済む
+                                     //多分この方がMain.isDousedでforeachするより他のアーソニストの分ループ数少なくて済む
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
                 if (pc == null ||

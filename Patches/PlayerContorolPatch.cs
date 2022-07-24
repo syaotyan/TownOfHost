@@ -736,6 +736,8 @@ namespace TownOfHost
                         }
                     }
                 }
+                if (GameStates.IsInTask && player == PlayerControl.LocalPlayer)
+                    DisableDevice.FixedUpdate();
 
                 if (GameStates.IsInGame && Main.RefixCooldownDelay <= 0)
                     foreach (var pc in PlayerControl.AllPlayerControls)
@@ -960,6 +962,7 @@ namespace TownOfHost
                     /*if(main.AmDebugger.Value && main.BlockKilling.TryGetValue(target.PlayerId, out var isBlocked)) {
                         Mark = isBlocked ? "(true)" : "(false)";
                     }*/
+                    RealName = Deputy.VisibleParent(seer, target, RealName);
 
                     //Mark・Suffixの適用
                     target.cosmetics.nameText.text = $"{RealName}{Mark}";
@@ -1182,7 +1185,7 @@ namespace TownOfHost
                 //ライターもしくはスピードブースターもしくはドクターがいる試合のみタスク終了時にCustomSyncAllSettingsを実行する
                 Utils.CustomSyncAllSettings();
             }
-
+            Deputy.OnCompleteTask(pc);
         }
     }
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.ProtectPlayer))]
