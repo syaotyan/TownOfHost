@@ -63,6 +63,7 @@ MSchrodingerCat,SchrodingerCat,シュレディンガーの猫
 EgoSchrodingerCat,SchrodingerCat,シュレディンガーの猫
 Opportunist,Opportunist,オポチュニスト
 Egoist,Egoist,エゴイスト
+Alice,Alice,アリス
 Lovers,Lovers,恋人
 
 # HideAndSeek
@@ -129,6 +130,7 @@ EgoSchrodingerCatInfo,I became an ally of my Egoist,エゴイストの味方に�
 TerroristInfo,Die after finishing your tasks,タスクを済ませ、自爆しよう
 ExecutionerInfo,Get your target voted out,ターゲットを追放させよう
 EgoistInfo,Let's dominate the Imposter victory,インポスター勝利を独占しよう
+AliceInfo,The selfishness that messes everything up,全てをメチャクチャにする、わがままの権化
 LoversInfo,Survive with your lover,恋人と生きて幸せを掴もう
 
 # HideAndSeek
@@ -182,6 +184,7 @@ ExecutionerInfoLong,"(Neutrals):\nThe target is marked with a diamond that is vi
 SchrodingerCatInfoLong,(Neutrals):\nWhen a kill is made the player prevents the kill and belongs to the team that made the kill.,(第三陣営):\nキルされると、キルを防いでキルをしてきた陣営に所属する。
 OpportunistInfoLong,"(Neutrals):\nIf the player is alive at the end of the match, he or she wins additional victory.",(第三陣営):\n試合終了時に生存していれば追加勝利となる。
 EgoistInfoLong,"(Neutrals):\nIf the Impostor wins with all allies dead, you win alone.\nThe Impostors knows the Egoist. Egoists also know the Impostors.",(第三陣営):\n味方がすべて死んだ状態でインポスターが勝つと単独勝利する。\nインポスターは誰がエゴイストか分かる。エゴイストも、誰がインポスターか分かる。
+AliceInfoLong,"(Neutrals):\nIt is assigned separately from Impostor.\nIf the Impostor is killed, the team wins an additional victory with the winning team, and if there are two players remaining and the role is Alice with a non-neutral role, the team wins alone.\nThey can use kill, vent, and sabotage.\nAt a minimum, they must have a set number of kills to win.\nKilling Schrödinger's cat does not change the team and can still kill it.",(第三陣営):\nインポスターとは別枠で割り当てられる。\nインポスターにキルされれば勝利陣営と一緒に追加勝利、残り人数が二人になったときにその役職が第三陣営以外とアリスであれば単独勝利する。\nキル、ベント、サボタージュが使える。\n最低限、設定された数キルしないと勝利することはできない。\nシュレーディンガーの猫をキルしても陣営が変化せず、そのままキルできる。
 
 # HideAndSeek
 HASFoxInfoLong,"(HideAndSeek):\nIf any of the camps, except the trolls, survive the victory,\nthey can win an additional victory for the winning camp.",(かくれんぼ):\nトロールを除くいずれかの陣営が勝利したときに生き残っていれば、勝利した陣営に追加で勝利することができる。
@@ -228,8 +231,12 @@ Default,Default,デフォルト
 Suicide,Suicide,切腹
 SelfVote,SelfVote,自投票
 Skip,Skip,スキップ
+DisableDevices,Disable Devices,デバイスを無効化
+DisableAdmin,Disable Admin,アドミン無効化
+WhichDisableAdmin,Which Disable admin,どのアドミンを無効化するか
 
 ## モード説明
+DisableDevicesInfo,"DisableDevices:\nVarious devices can be disabled (currently admin only, MiraHQ not supported)",デバイスを無効化:\n各種機器を無効化することができる。(現在はアドミンのみ、MiraHQ非対応)
 HideAndSeekInfo,"HideAndSeek:\nNo meetings can be held, Crewmates can only complete tasks\nand Impostors can only win by killing the entire crew.\nThe impostor's body will be changed to red and the crewmate to blue.",かくれんぼ:\n会議を開くことはできず、クルーはタスク完了、インポスターは全クルー殺害でのみ勝利することができる。\nインポスターは赤、クルーは青に体の色が変更される。
 StandardHASInfo,"HideAndSeek with Roles:\nNo meetings can be held, Crewmates can only complete tasks\nand Impostors can only win by killing the entire crew.",役職入りでかくれんぼ:\n会議を開くことはできず、クルーはタスク完了、インポスターは全クルー殺害でのみ勝利することができる。
 NoGameEndInfo,NoGameEnd:\nA mode for debugging in which there is no win decision.\nThe game cannot be exited except by SHIFT+L+ENTER of the host.,ゲームを終了しない:\n勝利判定が存在しないデバッグ用のモード。ホストのSHIFT+L+ENTER以外でのゲーム終了ができない。
@@ -276,6 +283,7 @@ SheriffCanKillOpportunist,Sheriff Can Kill Opportunist,シェリフがオポチ�
 SheriffCanKillMadmate,Sheriff Can Kill Madmate,シェリフがマッドメイトをキルできる
 SheriffCanKillEgoist,Sheriff Can Kill Egoist,シェリフがエゴイストをキルできる
 SheriffCanKillEgoShrodingerCat,Sheriff Can Kill EgoistSide ShrodingerCat,シェリフがエゴイスト陣営のシュレディンガーの猫をキルできる
+SheriffCanKillAlice,Sheriff Can Kill Alice,シェリフがアリスをキルできる
 SheriffCanKillCrewmatesAsIt,Sheriff Can Kill Crewmates As It,シェリフがそのままクルーをキルできる
 SheriffShotLimit,Sheriff Shot Limit,シェリフのキル可能回数
 DoctorTaskCompletedBatteryCharge,Doctor TaskCompletedBattery Charge,ドクターがタスクを終わらせたときにセットされるバイタルの秒数
@@ -303,6 +311,10 @@ NumberOfLovers,"Number Of Lovers(x2members)",ラバーズの組数(x2人数)
 TimeThiefDecreaseMeetingTime,TimeThief Decrease Meeting Time,減少する会議時間
 TimeThiefLowerLimitVotingTime,TimeThief Lower Limit Voting Time,投票時間の下限
 TimeThiefReturnStolenTimeUponDeath,Return Stolen Time Upon Death,死亡後に盗んだ時間を返す
+AliceKillCooldown,Alice KillCooldown,アリスのキルクールダウン
+AlicePlayerVision,Alice Vision,アリスの視界
+AliceAffectedByLightsOut,Alice affected by lights out,アリスが停電の影響を受ける
+AliceRequireKillToWin,Alice require kill to win,アリスが勝利するのに必要なキル数
 
 ## かくれんぼ設定
 HideAndSeekOptions,HideAndSeek Options,かくれんぼの設定
@@ -431,3 +443,6 @@ ArsonistDouseButtonText,Douse,塗る
 PuppeteerOperateButtonText,Operate,操る
 BountyHunterChangeButtonText,Change,変更
 DefaultShapeshiftText,SHIFT,変身
+All,All,すべて
+Archive,Archive,アーカイブ
+DisabledBySettings,Disabled by setting,設定で無効化されています

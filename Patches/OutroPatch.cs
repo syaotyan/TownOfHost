@@ -128,10 +128,12 @@ namespace TownOfHost
                     }
                 }
             }
+            //Alice
+            Alice.SoloWin(winner);
             ///以降追加勝利陣営 (winnerリセット無し)
-            //Opportunist
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
+                //Opportunist
                 if (pc.Is(CustomRoles.Opportunist) && !pc.Data.IsDead && Main.currentWinner != CustomWinner.Draw && Main.currentWinner != CustomWinner.Terrorist)
                 {
                     winner.Add(pc);
@@ -144,6 +146,7 @@ namespace TownOfHost
                         winner.Add(pc);
                         Main.additionalwinners.Add(AdditionalWinners.SchrodingerCat);
                     }
+                //Executioner
                 if (Main.currentWinner == CustomWinner.Jester)
                     foreach (var ExecutionerTarget in Main.ExecutionerTarget)
                     {
@@ -154,6 +157,8 @@ namespace TownOfHost
                         }
                     }
             }
+            //Alice
+            Alice.AddWinners(winner);
 
             //HideAndSeek専用
             if (Options.CurrentGameMode == CustomGameMode.HideAndSeek &&

@@ -568,6 +568,29 @@ Polus や The Airship のドアを開けるとその部屋の全てのドアが�
 
 1.エゴイストが死亡する<br> 2.味方が残っている状態でインポスター勝利をする<br> 3.他の第三陣営が勝利する<br>
 
+### Alice/アリス
+
+制作・改案者 : そうくん<br>
+
+陣営 : 第三<br>
+判定 : インポスター<br>
+勝利条件 : インポスターにキルされる。または、残り人数が二人になったときにその役職が第三陣営以外とアリスである。<br>
+
+インポスターにキルされれば勝利陣営と一緒に追加勝利します。<br>
+残り人数が二人になったときにその役職が第三陣営以外とアリスであれば単独勝利します。<br>
+キル、ベント、サボタージュが使えます。<br>
+最低限、設定された数キルしないと勝利することはできません。<br>
+シュレーディンガーの猫をキルしても陣営が変化せず、そのままキルできます。<br>
+
+#### 設定
+
+| 設定名                        |
+| ----------------------------- |
+| キルクール                     |
+| アリスの視界                   |
+| アリスが停電の影響を受ける      |
+| アリスが勝利するのに必要なキル数 |
+
 ### Executioner/エクスキューショナー
 
 陣営 : 第三<br>
@@ -676,9 +699,19 @@ Polus や The Airship のドアを開けるとその部屋の全てのドアが�
 ・ジェスター恋人：ジェスター恋人が追放されればジェスターとして勝利。恋人が投票で追放された場合はジェスター恋人は敗北。<br>
 ・ベイト恋人：恋人がキルされてベイト恋人が後追い死亡した時は、通報は行われない。<br>
 
+## DisableDevice/デバイスを無効化
+
+参考元 : [SuperNewRoles](https://github.com/ykundesu/SuperNewRoles), [The Other Roles: GM Edition](https://github.com/yukinogatari/TheOtherRoles-GM)<br>
+
+各種機器を無効化することができます。(現在はアドミンのみ、MiraHQ非対応)<br>
+
+| 設定名                     |
+| -------------------------- |
+| アドミン無効化              |
+| ・ どのアドミンを無効化するか |
 ## SabotageTimeControl/サボタージュの時間制御
 
-一部サボタージュの制限時間を変更することができます。
+一部サボタージュの制限時間を変更することができます。<br>
 
 | 設定名                         |
 | ------------------------------ |
@@ -827,6 +860,7 @@ Polus や The Airship のドアを開けるとその部屋の全てのドアが�
 [オポチュニスト](#Opportunist/オポチュニスト)、[ウォッチャー](#Watcher/ウォッチャー) のアイデア元 : [The Other Roles: GM Edition](https://github.com/yukinogatari/TheOtherRoles-GM)<br>
 [シュレディンガーの猫](#SchrodingerCat/シュレディンガーの猫) のアイデア元 : [The Other Roles: GM Haoming Edition](https://github.com/haoming37/TheOtherRoles-GM-Haoming)<br>
 [ドクター](#Doctor/ドクター) のアイデア元 : [Nebula on the Ship](https://github.com/Dolly1016/Nebula)<br>
+[アリス](#Alice/アリス) のアイデア元 : [Extreme Roles](https://github.com/yukieiji/ExtremeRoles)<br>
 [ジェスター](#Jester/ジェスター)(てるてる)と[マッドメイト](#Madmate/マッドメイト) のアイデア元 : [au.libhalt.net](https://au.libhalt.net)<br>
 [テロリスト](#Terrorist/テロリスト)(Trickstar + Joker) : [Foolers Mod](https://github.com/MengTube/Foolers-Mod)<br>
 [恋人](#lovers/恋人) : [Town-Of-Us-R](https://github.com/eDonnes124/Town-Of-Us-R)<br>

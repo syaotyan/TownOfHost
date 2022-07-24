@@ -165,7 +165,6 @@ namespace TownOfHost
             ExceptionMessage = "";
             try
             {
-
                 roleColors = new Dictionary<CustomRoles, string>()
                 {
                     //バニラ役職
@@ -202,6 +201,7 @@ namespace TownOfHost
                     {CustomRoles.SchrodingerCat, "#696969"},
                     {CustomRoles.Egoist, "#5600ff"},
                     {CustomRoles.EgoSchrodingerCat, "#5600ff"},
+                    {CustomRoles.Alice, "#ffd700"},
                     //HideAndSeek
                     {CustomRoles.HASFox, "#e478ff"},
                     {CustomRoles.HASTroll, "#00ff00"},
@@ -310,6 +310,7 @@ namespace TownOfHost
         SchrodingerCat,//第三陣営のシュレディンガーの猫
         Terrorist,
         Executioner,
+        Alice,
         //HideAndSeek
         HASFox,
         HASTroll,
@@ -330,6 +331,7 @@ namespace TownOfHost
         Executioner = CustomRoles.Executioner,
         Arsonist = CustomRoles.Arsonist,
         Egoist = CustomRoles.Egoist,
+        Alice = CustomRoles.Alice,
         HASTroll = CustomRoles.HASTroll,
     }
     public enum AdditionalWinners
@@ -338,6 +340,7 @@ namespace TownOfHost
         Opportunist = CustomRoles.Opportunist,
         SchrodingerCat = CustomRoles.SchrodingerCat,
         Executioner = CustomRoles.Executioner,
+        Alice = CustomRoles.Alice,
         HASFox = CustomRoles.HASFox,
     }
     /*public enum CustomRoles : byte

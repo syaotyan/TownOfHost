@@ -102,6 +102,7 @@ namespace TownOfHost
             SerialKiller.Init();
             FireWorks.Init();
             Sniper.Init();
+            Alice.Init();
             Sheriff.Init();
         }
     }
@@ -154,6 +155,7 @@ namespace TownOfHost
 
                 AssignDesyncRole(CustomRoles.Sheriff, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
                 AssignDesyncRole(CustomRoles.Arsonist, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
+                AssignDesyncRole(CustomRoles.Alice, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
             }
             if (sender.CurrentState == CustomRpcSender.State.InRootMessage) sender.EndMessage();
             //以下、バニラ側の役職割り当てが入る
@@ -331,11 +333,12 @@ namespace TownOfHost
                         foreach (var seer in PlayerControl.AllPlayerControls)
                         {
                             if (seer == pc) continue;
-                            if (pc.GetCustomRole().IsImpostor() || pc.Is(CustomRoles.Egoist)) //変更対象がインポスター陣営orエゴイスト
+                            if (pc.GetCustomRole().IsImpostor() || pc.IsNeutralKiller()) //変更対象がインポスター陣営orエゴイスト
                                 NameColorManager.Instance.RpcAdd(seer.PlayerId, pc.PlayerId, $"{pc.GetRoleColorCode()}");
                         }
                     }
                     if (pc.Is(CustomRoles.Sniper)) Sniper.Add(pc.PlayerId);
+                    if (pc.Is(CustomRoles.Alice)) Alice.Add(pc.PlayerId);
                     if (pc.Is(CustomRoles.Executioner))
                     {
                         List<PlayerControl> targetList = new();
@@ -384,7 +387,7 @@ namespace TownOfHost
             }
 
             // ResetCamが必要なプレイヤーのリスト
-            Main.ResetCamPlayerList = PlayerControl.AllPlayerControls.ToArray().Where(p => p.GetCustomRole() is CustomRoles.Arsonist).Select(p => p.PlayerId).ToList();
+            Main.ResetCamPlayerList = PlayerControl.AllPlayerControls.ToArray().Where(p => p.GetCustomRole() is CustomRoles.Arsonist or CustomRoles.Sheriff or CustomRoles.Alice).Select(p => p.PlayerId).ToList();
             Utils.CountAliveImpostors();
             Utils.CustomSyncAllSettings();
             SetColorPatch.IsAntiGlitchDisabled = false;

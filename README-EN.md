@@ -569,6 +569,29 @@ The conditions for defeat are as follows.<br>
 2.Imposter victory with allies remaining.<br>
 3.Other Neutrals win.<br>
 
+### Alice
+
+Create and revision idea by そうくん<br>
+
+Team : Neutral<br>
+Descision : Impostor<br>
+Victory Conditions : Killed by Impostor. Or, when there are only two people left, the role is other than neutral role and Alice.<br>
+
+It is assigned separately from Impostor.<br>
+If the Impostor is killed, the team wins an additional victory with the winning team, and if there are two players remaining and the role is Alice with a non-neutral role, the team wins alone.<br>
+They can use kill, vent, and sabotage.<br>
+At a minimum, they must have a set number of kills to win.<br>
+Killing Schrödinger's cat does not change the team and can still kill it.<br>
+
+#### Settings
+
+| Settings Name                |
+| ---------------------------- |
+| KillCooldow                  |
+| Alice Vision                 |
+| Alice affected by lights out |
+| Alice require kill to win    |
+
 ### Executioner
 
 
@@ -679,6 +702,16 @@ Example of overlapping job titles: <br>
 ・ Jester Lover: If Jester Lover is banished, you will win as Jester. If the lover is banished by voting, Jester's lover is defeated. <br>
 ・ Bait lover: When the lover is killed and the bait lover dies afterwards, the lover immediately reports the bait lover. <br>
 
+## DisableDevice
+
+Reference source : [SuperNewRoles](https://github.com/ykundesu/SuperNewRoles), [The Other Roles: GM Edition](https://github.com/yukinogatari/TheOtherRoles-GM)<br>
+
+Various devices can be disabled (currently admin only, MiraHQ not supported)
+
+| Settings Name         |
+| --------------------- |
+| Disable Admin         |
+| ・ Which Disable admin |
 ## SabotageTimeControl
 
 The time limit for some sabotage can be changed.
@@ -831,6 +864,7 @@ More tips to modding and [BountyHunter](#BountyHunter),[Mafia](#Mafia),[Vampire]
 [Opportunist](#Opportunist),[Watcher](#Watcher) original idea by [The Other Roles: GM Edition](https://github.com/yukinogatari/TheOtherRoles-GM)<br>
 [SchrodingerCat](#SchrodingerCat) idea by [The Other Roles: GM Haoming Edition](https://github.com/haoming37/TheOtherRoles-GM-Haoming)<br>
 [Doctor](#Doctor) original idea by [Nebula on the Ship](https://github.com/Dolly1016/Nebula)<br>
+[Alice](#Alice) Idea by [Extreme Roles](https://github.com/yukieiji/ExtremeRoles)<br>
 [Jester](#Jester) and [Madmate](#Madmate) original idea by [au.libhalt.net](https://au.libhalt.net)<br>
 [Terrorist](#Terrorist)(Trickstar + Joker) : [Foolers Mod](https://github.com/MengTube/Foolers-Mod)<br>
 [Lovers](#lovers) : [Town-Of-Us-R](https://github.com/eDonnes124/Town-Of-Us-R)<br>
