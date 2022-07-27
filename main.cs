@@ -191,6 +191,7 @@ namespace TownOfHost
                     {CustomRoles.Trapper, "#5a8fd0"},
                     {CustomRoles.Dictator, "#df9b00"},
                     {CustomRoles.Medium, "#1da4ff"},
+                    {CustomRoles.Deputy, "#f8cd46"},
                     {CustomRoles.CSchrodingerCat, "#ffffff"}, //シュレディンガーの猫の派生
                     //第三陣営役職
                     {CustomRoles.Arsonist, "#ff6633"},
@@ -294,6 +295,7 @@ namespace TownOfHost
         NiceWatcher,
         SabotageMaster,
         Sheriff,
+        Deputy,
         Snitch,
         SpeedBooster,
         Trapper,

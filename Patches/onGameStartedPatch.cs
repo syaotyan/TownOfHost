@@ -104,6 +104,7 @@ namespace TownOfHost
             Sniper.Init();
             Alice.Init();
             Sheriff.Init();
+            Deputy.Init();
         }
     }
     [HarmonyPatch(typeof(RoleManager), nameof(RoleManager.SelectRoles))]
@@ -274,6 +275,8 @@ namespace TownOfHost
                 AssignCustomRolesFromList(CustomRoles.Doctor, Scientists);
                 AssignCustomRolesFromList(CustomRoles.Puppeteer, Impostors);
                 AssignCustomRolesFromList(CustomRoles.TimeThief, Impostors);
+                if (CustomRoles.Sheriff.IsEnable())
+                    AssignCustomRolesFromList(CustomRoles.Deputy, Crewmates);
 
                 //RPCによる同期
                 foreach (var pc in PlayerControl.AllPlayerControls)
@@ -357,6 +360,7 @@ namespace TownOfHost
                     }
                     if (pc.Is(CustomRoles.Mayor))
                         Main.MayorUsedButtonCount[pc.PlayerId] = 0;
+                    if (pc.Is(CustomRoles.Deputy)) Deputy.Add(pc.PlayerId);
 
                     pc.ResetKillCooldown();
                 }

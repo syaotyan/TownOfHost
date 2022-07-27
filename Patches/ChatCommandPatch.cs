@@ -256,6 +256,7 @@ namespace TownOfHost
                 { (CustomRoles)(-4), $"== {GetString("Crewmate")} ==" }, //区切り用
                 { CustomRoles.Bait, "ba" },
                 { CustomRoles.Dictator, "dic" },
+                { CustomRoles.Medium,"med"},
                 { CustomRoles.Doctor, "doc" },
                 { CustomRoles.Lighter, "li" },
                 { CustomRoles.Mayor, "my" },
